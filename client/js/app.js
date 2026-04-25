@@ -1,6 +1,6 @@
 (() => {
   const AUTH_KEY = 'nexustraffic_auth';
-  const API_BASE = window.NEXUS_API_BASE || 'http://localhost:5000/api';
+  const API_BASE = window.NEXUS_API_BASE || 'https://traffic-site-1.onrender.com/api';
 
   const DASHBOARD_BY_ROLE = {
     user: 'pages/user/user_dashboard.html',
