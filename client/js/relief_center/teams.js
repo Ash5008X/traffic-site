@@ -15,7 +15,7 @@
 (() => {
   // --- Secure Authentication & API Configuration ---
   const AUTH_KEY = 'nexustraffic_auth';
-  const API = window.NEXUS_API_BASE || 'http://localhost:5000/api';
+  const API = window.NEXUS_API_BASE || 'https://traffic-site-1.onrender.com/api';
 
   /**
    * Secure Retrieval of the cryptographic session token.

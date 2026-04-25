@@ -44,7 +44,7 @@
    * Standardized API dispatcher with integrated authorization headers.
    */
   async function apiFetch(endpoint, options = {}) {
-    const res = await fetch(`http://localhost:5000/api${endpoint}`, {
+    const res = await fetch(`https://traffic-site-1.onrender.com/api${endpoint}`, {
       ...options,
       headers: {
         'Authorization': `Bearer ${token}`,
