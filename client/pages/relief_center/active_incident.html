@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NexusTraffic | Active Incidents</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<!-- NexusTraffic type stack -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Keep original fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;500;600&family=Fira+Code:wght@500&family=Space+Grotesk:wght@300..700&family=Plus+Jakarta+Sans:wght@300..800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+
+<link rel="stylesheet" href="../../css/relief_center/active_incidents.css">
+
+</head>
+
+<body class="font-body selection:bg-primary selection:text-on-primary flex flex-col h-screen overflow-hidden">
+
+<!-- ════════════════════════════════════════════════
+     TOP NAV BAR
+     ════════════════════════════════════════════════ -->
+
+
+<!-- ════════════════════════════════════════════════
+     MAIN COMMAND LAYOUT
+     ════════════════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════════════════
+     TOP NAV BAR
+     ════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════
+     TOP NAV BAR
+     Orchestrates global navigation, identity management, and real-time system clock.
+     ════════════════════════════════════════════════ -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Branding & Mission Identity -->
+  <div class="flex items-center gap-4">
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Command Navigation: Switches between operational modules -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="relief_dashbaord.html">Dashboard</a>
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="active_incident.html">Active Incidents</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="alerts.html">Alerts</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="reports.html">Reports</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="teams.html">Teams</a>
+  </div>
+
+  <!-- Global Meta & System Telemetry -->
+  <div class="flex items-center gap-4">
+    <!-- Synced Operational Clock (UTC) -->
+    <div class="fira-code text-sm hidden lg:block" style="color: var(--nt-dim)" id="clock">14:32:08 UTC</div>
+
+    <!-- Real-time Tactical Notifications -->
+    <button class="icon-btn relative group" title="Notifications" id="relief-notif-btn">
+      <span class="material-symbols-outlined" style="color: var(--nt-dim)">notifications</span>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#F97316] rounded-full border-2 border-[#141417] hidden notif-dot"></span>
+    </button>
+
+    <!-- Administrator Identity & Security Dropdown -->
+    <div class="relative group flex items-center gap-2 cursor-pointer nt-user-profile">
+      <span class="outfit text-sm font-semibold nt-user-name" style="color: var(--nt-bright)">Admin</span>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center border overflow-hidden user-avatar" style="border-color: var(--nt-card-border)">
+        <span class="material-symbols-outlined text-[var(--nt-dim)]">account_circle</span>
+      </div>
+      
+      <!-- Secure Session Management -->
+      <div class="absolute right-0 top-full mt-2 w-48 nt-card border border-[var(--nt-card-border)] rounded shadow-[0_4px_20px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="flex flex-col py-1">
+          <button class="px-4 py-2 text-left outfit text-sm text-[var(--nt-dim)] hover:bg-[#1F3448]/30 hover:text-[#F97316] transition-colors flex items-center gap-3 w-full">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Design System Interface Toggles -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle light / dark">
+      <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     MAIN MISSION CONTROL INTERFACE
+     A three-column tactical layout for total incident lifecycle management.
+     ════════════════════════════════════════════════ -->
+<main class="flex-1 flex w-full overflow-hidden">
+
+  <!-- ─── LEFT COLUMN: Incident Registry & Filtering ───
+       Displays the live queue of incidents within the operational radius.
+       Supports state-based filtering (Pending, Assigned, En Route, On Site). -->
+  <aside class="w-[25%] border-r border-[#1F3448]/40 flex flex-col overflow-hidden">
+    <div class="p-6 pb-2">
+      <h2 class="font-headline font-[700] text-xl tracking-tight mb-4" style="color: var(--nt-bright)">ACTIVE INCIDENTS</h2>
+      <!-- Tactical State Filters -->
+      <div class="flex gap-2 overflow-x-auto pb-4">
+        <button class="px-3 py-1 text-[10px] font-bold bg-[#F97316] text-white rounded-sm whitespace-nowrap">PENDING</button>
+        <button class="nt-filter-inactive px-3 py-1 text-[10px] font-bold rounded-sm whitespace-nowrap">ASSIGNED</button>
+        <button class="nt-filter-inactive px-3 py-1 text-[10px] font-bold rounded-sm whitespace-nowrap">EN ROUTE</button>
+        <button class="nt-filter-inactive px-3 py-1 text-[10px] font-bold rounded-sm whitespace-nowrap">ON SITE</button>
+      </div>
+    </div>
+
+    <!-- Live Incident Stream -->
+    <div class="flex-1 overflow-y-auto px-6 space-y-4 pb-6" id="active-incidents-container">
+      <div class="text-center py-12" style="color:var(--nt-dim)">
+        <span class="material-symbols-outlined text-4xl block mb-2" style="color:var(--nt-dim)">sync</span>
+        <p class="outfit text-xs">Loading incidents…</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── CENTER COLUMN: Tactical SitRep & Visualizations ───
+       The primary focus for mission coordination, featuring a live geospatial map
+       and an immutable mission log for chronological activity tracking. -->
+  <section class="center-section w-[45%] flex flex-col p-6">
+    <!-- Mission Telemetry Header -->
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex items-center gap-4">
+        <h1 class="font-headline font-extrabold text-2xl tracking-tighter" style="color: var(--nt-bright)">INCIDENT COMMAND CENTER</h1>
+        <div class="flex items-center gap-2 bg-error-container/20 px-2 py-0.5 rounded-sm">
+          <span class="w-1.5 h-1.5 bg-[#FF3B30] rounded-full pulse"></span>
+          <span class="font-technical text-[10px] text-[#FF3B30] font-bold">LIVE</span>
+        </div>
+      </div>
+      <span class="font-technical text-[10px]" style="color: var(--nt-dim)">UPDATING_POSITIONS_REALTIME...</span>
+    </div>
+
+    <!-- Primary Tactical Map Interface -->
+    <div class="flex-1 min-h-[400px] relative nt-card overflow-hidden rounded-sm group" id="leaflet-map-container">
+      <div id="leaflet-map" style="width:100%;height:100%;border-radius:inherit;z-index:0;"></div>
+      <span class="absolute bottom-2 left-2 z-10 fira-code text-[10px] text-[#F97316] font-bold px-2 py-0.5 border border-[#F97316]/30 pointer-events-none bg-black/40">LIVE_MAP_STREAM · 15 KM ZONE</span>
+    </div>
+
+    <!-- Unified Mission Dispatch Log -->
+    <div class="mt-6 flex flex-col h-[30%]">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="material-symbols-outlined text-sm text-[#F97316]">receipt_long</span>
+        <h2 class="font-headline font-bold text-sm tracking-widest" style="color: var(--nt-bright)">DISPATCH LOG</h2>
+      </div>
+      <!-- Scrollable activity log -->
+      <div class="nt-dispatch-table flex-1 overflow-y-auto border border-[#1F3448]/40">
+        <table class="w-full text-left font-technical text-[10px]">
+          <thead class="nt-table-head sticky top-0 border-b border-[#1F3448]/60">
+            <tr>
+              <th class="p-2">TIMESTAMP</th>
+              <th class="p-2">ACTION_PROTOCOL</th>
+              <th class="p-2">UNIT_ID</th>
+              <th class="p-2">STATUS</th>
+            </tr>
+          </thead>
+          <tbody class="nt-table-row-divide divide-y divide-[#1F3448]/40" id="dispatch-log-container">
+            <!-- Dynamically populated activity rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── RIGHT COLUMN: Intelligence & Metrics ───
+       Displays tactical unit readiness, prioritized critical alerts, and 
+       aggregate response performance indicators. -->
+  <aside class="w-[30%] border-l border-[#1F3448]/40 p-6 space-y-8 overflow-y-auto">
+
+    <!-- Deployment Status Matrix -->
+    <div>
+      <h2 class="font-headline font-bold text-xl tracking-tight mb-6" style="color: var(--nt-bright)">UNIT STATUS BOARD</h2>
+      <div class="grid grid-cols-2 gap-3" id="unit-status-container">
+        <!-- Live unit status chips -->
+      </div>
+    </div>
+
+    <!-- High-Priority Tactical Alerts -->
+    <div>
+      <h2 class="font-headline font-bold text-sm tracking-widest text-[#FF3B30] mb-4 flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">warning</span> CRITICAL ALERTS
+      </h2>
+      <div class="space-y-2" id="critical-alerts-container">
+        <!-- Prioritized system alerts -->
+      </div>
+    </div>
+
+    <!-- Live Mission Analytics -->
+    <div class="nt-metrics p-6 border border-[#1F3448]/40">
+      <h2 class="font-headline font-bold text-sm tracking-widest mb-6" style="color: var(--nt-dim)">RESPONSE METRICS LIVE</h2>
+      <div class="space-y-6">
+        <div class="flex justify-between items-end nt-metrics-divide border-b border-[#1F3448]/40 pb-2">
+          <span class="font-body text-xs" style="color: var(--nt-dim)">Units Deployed</span>
+          <span class="font-headline font-bold text-3xl text-[#F97316]" id="metric-units">—</span>
+        </div>
+        <div class="flex justify-between items-end nt-metrics-divide border-b border-[#1F3448]/40 pb-2">
+          <span class="font-body text-xs" style="color: var(--nt-dim)">Avg ETA</span>
+          <span class="font-headline font-bold text-3xl text-[#F97316]" id="metric-eta">—</span>
+        </div>
+        <div class="flex justify-between items-end">
+          <span class="font-body text-xs" style="color: var(--nt-dim)">Incidents Resolved</span>
+          <span class="font-headline font-bold text-3xl text-[#F97316]" id="metric-resolved">—</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+</main>
+
+<!-- ════════════════════════════════════════════════
+     SYSTEM FOOTER: Global Telemetry
+     Provides continuous health and location data of the command node.
+     ════════════════════════════════════════════════ -->
+<footer class="fixed bottom-0 w-full h-8 border-t flex items-center justify-between px-6 z-50">
+  <!-- Infrastructure Health -->
+  <div class="flex gap-8">
+    <div class="flex items-center gap-2">
+      <span class="w-1.5 h-1.5 bg-[#34C759] rounded-full"></span>
+      <span class="font-technical text-[10px]" style="color: var(--nt-dim)">SYSTEM_NOMINAL_100%</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[10px]" style="color: var(--nt-dim)">lock</span>
+      <span class="font-technical text-[10px]" style="color: var(--nt-dim)">AES_256_ACTIVE</span>
+    </div>
+  </div>
+  <!-- Command Location & Sync Status -->
+  <div class="flex gap-8">
+    <div class="font-technical text-[10px]" style="color: var(--nt-dim)">UNITS_ACTIVE: 24</div>
+    <div class="font-technical text-[10px]" style="color: var(--nt-dim)">COORDS: 40.7128N, 74.0060W</div>
+    <div class="font-technical text-[10px] text-[#F97316]">SYNC_STABLE</div>
+  </div>
+</footer>
+
+
+
+<script src="../../js/app.js"></script>
+<script src="../../js/theme.js"></script>
+<script src="../../js/relief_center/active_incident.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | Incidents</title>
+
+<!-- Tailwind CSS for utility-first styling -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- External typography fonts from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Barlow:wght@700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet"/>
+
+<!-- Link to external field unit incidents CSS -->
+<link href="../../css/field_unit/incidents.css" rel="stylesheet"/>
+</head>
+
+<!-- Body section -->
+<body>
+
+<!-- Global desktop navigation bar for field units -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Left side of the navbar containing brand identity -->
+  <div class="flex items-center gap-4">
+    <!-- Brand identity block -->
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Desktop navigation links -->
+  <div class="hidden md:flex items-center gap-8">
+    <!-- Link to the active mission dashboard -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_desktop.html">My Mission</a>
+    <!-- Link to the historical incidents feed (currently active) -->
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="field_incidents.html">Incidents</a>
+    <!-- Link to the field unit's profile -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_profile.html">Profile</a>
+  </div>
+
+  <!-- Right side of the navbar containing utility buttons -->
+  <div class="flex items-center gap-4">
+    <!-- Notifications toggle button -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)">
+      <!-- Notifications icon -->
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+    
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)"
+            id="theme-toggle">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+
+    <!-- Field unit avatar image -->
+    <div class="user-avatar w-9 h-9 rounded-full border-2 overflow-hidden cursor-pointer transition-colors hover:border-[#F97316]" style="border-color: var(--nt-nav-border);">
+      <img alt="Agent Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuj1WLDBFjCZTniYsvoQlW7eQfjF5jYPfeOakgfdr9H-RP5hDIi2piZVbZuRsO-CABUCYvxyUkTzbZ7N1DKPytTioHa1piuxhuQap4B34ZAglzEI_xxYpeW3KO68LspMP8PjLhxv6ZUsMqoOGMKmrFh8Q8TBw2tivfBqxHinr3_J6phFy2n8n8wCx09SbKjZTGa6HOc6K0MVF2c5Nz1BkmGiflw1NIMwLrGPBjSH5T3RUZSRK1opgCbcT6uEzYZ9a_Fw6jHLOu9jk"/>
+    </div>
+  </div>
+</nav>
+
+<!-- Main content layout using a split column grid -->
+<div class="main-grid">
+
+  <!-- Left column for incident filtering and personal duty summary -->
+  <aside class="col-left col-scroll hide-scrollbar">
+
+    <!-- Sorting controls for the incident registry -->
+    <div>
+      <span class="sort-label">Sort_Registry</span>
+      <!-- Custom select wrapper -->
+      <div class="sort-select-wrap">
+        <select id="sort-select" class="sort-select" aria-label="Sort incidents">
+          <option value="newest">Newest First</option>
+          <option value="critical">Critical Only</option>
+          <option value="pending">Pending Only</option>
+        </select>
+        <!-- Dropdown arrow icon -->
+        <span class="sort-arrow material-symbols-outlined">expand_more</span>
+      </div>
+    </div>
+
+    <!-- Sidebar container for today's proximal alerts -->
+    <div id="today-alerts-sidebar" class="space-y-2">
+       <!-- Section header -->
+       <div class="section-heading" style="font-size:12px; opacity:0.6">Today's_Alerts</div>
+       <!-- Dynamic list for small alert cards -->
+       <div id="sidebar-alerts-list" class="space-y-2 max-h-[300px] overflow-y-auto hide-scrollbar">
+         <!-- Dynamic content injected via JS -->
+       </div>
+    </div>
+
+    <!-- Summary of duty performance for the current session -->
+    <div style="margin-top:auto;">
+      <!-- Section title -->
+      <div class="section-heading">Duty_Summary</div>
+
+      <!-- Card showing current active assignments -->
+      <div class="duty-card border-teal">
+        <div>
+          <div class="duty-label">Assigned</div>
+          <div id="stat-assigned" class="duty-num teal">--</div>
+        </div>
+        <span class="duty-meta">Live_Queue</span>
+      </div>
+
+      <!-- Card showing total completed missions today -->
+      <div class="duty-card border-purple">
+        <div>
+          <div class="duty-label">Completed Today</div>
+          <div id="stat-completed" class="duty-num purple">--</div>
+        </div>
+        <span class="duty-meta">Session_End</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Center column for the primary incident feeds -->
+  <section class="col-center col-scroll hide-scrollbar">
+
+    <!-- Primary feed: Currently active missions -->
+    <div>
+      <div class="feed-header">
+        <span class="feed-title">Active_Assignments</span>
+        <!-- Real-time synchronization indicator -->
+        <span class="sync-badge">Sync_Active</span>
+      </div>
+
+      <!-- Container for active assignment cards -->
+      <div id="active-list">
+        <!-- Placeholder text when list is empty -->
+        <p class="outfit text-xs text-center py-8" style="color:var(--nt-dim);opacity:0.5">No active assignments</p>
+      </div>
+    </div>
+
+    <!-- Secondary feed: Incidents reported near the unit's location -->
+    <div>
+      <div class="feed-header">
+        <span class="feed-title" style="color:var(--text-secondary);">Proximal_Telemetry</span>
+      </div>
+      <!-- Grid layout for small proximal incident cards -->
+      <div id="proximal-grid" class="proximal-grid">
+        <!-- Dynamic placeholders for proximal incidents -->
+        <div class="proximal-card" style="opacity:0.3"></div>
+        <div class="proximal-card" style="opacity:0.3"></div>
+        <div class="proximal-card" style="opacity:0.3"></div>
+        <div class="proximal-card" style="opacity:0.3"></div>
+      </div>
+    </div>
+
+    <!-- Tertiary feed: Log of past resolved incidents -->
+    <div>
+      <div class="feed-header">
+        <span class="feed-title" style="color:var(--text-muted);">History_Log</span>
+      </div>
+      <!-- Container for historical incident logs -->
+      <div id="history-list">
+        <!-- Dynamic content injected via JS -->
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<!-- Global system status footer -->
+<footer class="footer-bar">
+  <!-- Left side of the footer for identification metadata -->
+  <div class="footer-left">
+    <!-- Unique unit identification reference -->
+    <span class="f-purple">Unit_ID // Field_Agent_77</span>
+    <!-- Data security/encryption identification -->
+    <span class="f-muted">Encryption: <span class="f-teal">AES-256_Active</span></span>
+  </div>
+  <!-- Right side of the footer for real-time telemetry -->
+  <div class="footer-right">
+    <!-- Current live GPS coordinates -->
+    <div style="display:flex;align-items:center;gap:6px;">
+      <!-- Live indicator dot -->
+      <div class="footer-dot"></div>
+      <span class="f-muted">GPS: <span class="f-primary">LAT_40.7128_N // LONG_74.0060_W</span></span>
+    </div>
+    <!-- Global system status label -->
+    <span class="f-purple">System_Status // Nominal</span>
+  </div>
+</footer>
+
+<!-- High-priority modal for detailed incident review -->
+<div id="detail-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+  <!-- Modal container -->
+  <div class="bg-[var(--nt-nav-bg)] border border-[var(--nt-nav-border)] w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-all duration-300" id="modal-content">
+    <!-- Decorative top accent bar -->
+    <div class="h-1.5 w-full bg-[#F97316]"></div>
+    <!-- Modal content padding -->
+    <div class="p-8">
+      <!-- Modal header containing title and severity -->
+      <div class="flex justify-between items-start mb-6">
+        <div>
+          <!-- Dynamic severity badge -->
+          <span id="modal-severity" class="critical-badge mb-2 inline-block">--</span>
+          <!-- Dynamic incident title -->
+          <h2 id="modal-title" class="barlow-900 text-3xl tracking-tight text-[var(--nt-bright)]">--</h2>
+          <!-- Unique incident ID tag -->
+          <p id="modal-id" class="fira-code text-xs text-[var(--nt-dim)] mt-1">INCIDENT_ID // --</p>
+        </div>
+        <!-- Close button -->
+        <button id="close-modal" class="text-[var(--nt-dim)] hover:text-[var(--nt-bright)] transition-colors">
+          <span class="material-symbols-outlined" style="font-size:32px">close</span>
+        </button>
+      </div>
+
+      <!-- Scrollable content area for incident details -->
+      <div class="space-y-6">
+        <!-- Situation Report (SITREP) container -->
+        <div class="p-4 rounded-xl bg-black/20 border border-[var(--nt-nav-border)]">
+          <span class="fira-code text-[10px] text-[var(--nt-dim)] uppercase block mb-2 tracking-widest">// MISSION_SITREP</span>
+          <!-- Dynamic description text -->
+          <p id="modal-desc" class="outfit text-sm leading-relaxed text-[var(--nt-dim)]">--</p>
+        </div>
+
+        <!-- Grid for additional mission parameters -->
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Coordinates telemetry card -->
+          <div class="p-4 rounded-xl bg-black/20 border border-[var(--nt-nav-border)]">
+            <span class="fira-code text-[10px] text-[var(--nt-dim)] uppercase block mb-1 tracking-widest">COORDINATES</span>
+            <div id="modal-coords" class="barlow-800 text-xl text-[var(--nt-bright)]">--</div>
+          </div>
+          <!-- Timestamp telemetry card -->
+          <div class="p-4 rounded-xl bg-black/20 border border-[var(--nt-nav-border)]">
+            <span class="fira-code text-[10px] text-[var(--nt-dim)] uppercase block mb-1 tracking-widest">REPORTED_AT</span>
+            <div id="modal-time" class="barlow-800 text-xl text-[var(--nt-bright)]">--</div>
+          </div>
+        </div>
+        
+        <!-- Modal footer containing primary action -->
+        <div class="flex gap-4 pt-4">
+           <!-- Button to navigate to the primary mission management center -->
+           <button id="modal-action-btn" class="flex-1 py-4 bg-[#F97316] text-white barlow-800 text-lg rounded-xl shadow-lg hover:bg-[#EA6A0A] transition-all transform active:scale-95">
+             GOTO MISSION CENTER
+           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- Field unit incidents specific functionality script -->
+<script src="../../js/field_unit/field_incidents.js"></script>
+
+</body>
+</html>
+

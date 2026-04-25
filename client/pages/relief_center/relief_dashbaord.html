@@ -1,0 +1,317 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | Dashboard</title>
+
+<!-- Tailwind CSS for utility-first styling -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<!-- NexusTraffic design system typography stack -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Preconnect to Google Fonts for faster delivery -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<!-- Consolidated secondary typography and coding fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700;1,800&family=Fira+Code:wght@300..700&family=Outfit:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<!-- Link to external relief center dashboard CSS -->
+<link rel="stylesheet" href="../../css/relief_center/dashboard.css">
+</head>
+
+<!-- Body section with base typography -->
+<body class="font-body">
+
+<!-- Global navigation bar for relief center administrators -->
+<nav class="h-16 flex items-center justify-between px-6 border-b">
+  <!-- Left side of the navbar containing brand identity -->
+  <div class="flex items-center gap-4">
+    <!-- Brand identity block -->
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Desktop navigation links for relief modules -->
+  <div class="hidden md:flex items-center gap-8">
+    <!-- Link to the primary operational dashboard (currently active) -->
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="relief_dashbaord.html">Dashboard</a>
+    <!-- Link to the management list of all active incidents -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="active_incident.html">Active Incidents</a>
+    <!-- Link to proximity-based community alerts -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="alerts.html">Alerts</a>
+    <!-- Link to historical reporting and analysis -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="reports.html">Reports</a>
+    <!-- Link to field unit team management -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="teams.html">Teams</a>
+  </div>
+
+  <!-- Right side of the navbar for session and system status -->
+  <div class="flex items-center gap-4">
+    <!-- Live UTC synchronized clock -->
+    <div class="fira-code text-sm hidden lg:block" style="color: var(--nt-dim)" id="clock">14:32:08 UTC</div>
+
+    <!-- Notification center toggle with indicator dot -->
+    <button class="icon-btn relative group" title="Notifications" id="relief-notif-btn">
+      <span class="material-symbols-outlined" style="color: var(--nt-dim)">notifications</span>
+      <!-- Pulsing indicator for unread high-priority logs -->
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#F97316] rounded-full border-2 border-[#141417] hidden notif-dot"></span>
+    </button>
+
+    <!-- User identity block with dropdown profile menu -->
+    <div class="relative group flex items-center gap-2 cursor-pointer nt-user-profile">
+      <!-- Authenticated admin username -->
+      <span class="outfit text-sm font-semibold nt-user-name" style="color: var(--nt-bright)">Admin</span>
+      <!-- User avatar frame -->
+      <div class="w-8 h-8 rounded-full flex items-center justify-center border overflow-hidden user-avatar" style="border-color: var(--nt-card-border)">
+        <span class="material-symbols-outlined text-[var(--nt-dim)]">account_circle</span>
+      </div>
+      
+      <!-- Interactive profile dropdown -->
+      <div class="absolute right-0 top-full mt-2 w-48 nt-card border border-[var(--nt-card-border)] rounded shadow-[0_4px_20px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="flex flex-col py-1">
+          <!-- Session termination action button -->
+          <button class="px-4 py-2 text-left outfit text-sm text-[var(--nt-dim)] hover:bg-[#1F3448]/30 hover:text-[#F97316] transition-colors flex items-center gap-3 w-full">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle light / dark">
+      <!-- Theme icon (dynamic) -->
+      <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Main operational dashboard layout (Three-column grid) -->
+<main class="flex-1 flex overflow-hidden">
+
+  <!-- Column 1: Live active incident queue (25% width) -->
+  <section class="col-left col-scroll w-1/4 flex flex-col border-r border-[#1F3448]/30">
+    <!-- Queue header with high-priority count indicator -->
+    <div class="queue-header p-4 flex justify-between items-center sticky top-0 z-10 border-b border-[#1F3448]/30">
+      <h2 class="barlow-700 text-lg tracking-wider" style="color: var(--nt-bright)">Active Incidents</h2>
+      <!-- Real-time counter for new unhandled reports -->
+      <span class="bg-[#FF3B30] text-white text-xs barlow-800 px-2 py-0.5 rounded">0 NEW</span>
+    </div>
+    <!-- List container for interactive incident cards -->
+    <div class="flex-1 p-4 space-y-4">
+      <!-- Incident cards dynamically injected by relief_dashboard.js -->
+      <div class="text-center py-12" style="color:var(--nt-dim)">
+        <!-- Loading state indicator -->
+        <span class="material-symbols-outlined text-4xl block mb-2" style="color:var(--nt-dim)">sync</span>
+        <p class="outfit text-xs">Loading incidents…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Column 2: Selected incident command & control panel (45% width) -->
+  <section class="col-center col-scroll w-[45%] flex flex-col border-r border-[#1F3448]/30">
+
+    <!-- Primary empty state: visible when no specific incident is engaged -->
+    <div id="detail-empty" class="flex-1 flex flex-col items-center justify-center gap-4" style="color:var(--nt-dim)">
+      <span class="material-symbols-outlined" style="font-size:56px;opacity:0.3">crisis_alert</span>
+      <p class="outfit text-sm tracking-wider" style="opacity:0.4">SELECT AN INCIDENT TO VIEW DETAILS</p>
+    </div>
+
+    <!-- Live command panel for the selected incident -->
+    <div id="detail-panel" class="hidden flex-col flex-1" style="display:none">
+      <div class="p-6 space-y-6 flex-1 overflow-y-auto">
+
+        <!-- Critical identity and status header -->
+        <div id="detail-header" class="nt-card p-8 rounded-lg border-l-4 shadow-2xl relative" style="border-left-color:#FF3B30">
+          <!-- Dynamic status badge (e.g., PENDING, EN ROUTE) -->
+          <div id="detail-status" class="absolute top-4 right-6 fira-code text-sm font-bold px-3 py-1 rounded"
+               style="color:#FF3B30;background:#FF3B3022">PENDING</div>
+          <!-- Unique incident identification tag -->
+          <span id="detail-id" class="fira-code text-xs" style="color: var(--nt-dim)">INCIDENT_ID // —</span>
+          <!-- Dynamic incident title/subject -->
+          <h1 id="detail-title" class="barlow-800 text-4xl mt-2 mb-4" style="color: var(--nt-bright)">—</h1>
+          <!-- Core telemetry grid -->
+          <div class="grid grid-cols-2 gap-8 mt-6">
+            <!-- Geographical telemetry -->
+            <div>
+              <p class="outfit text-xs uppercase font-bold tracking-widest mb-1" style="color: var(--nt-dim)">Location Coordinates</p>
+              <p id="detail-coords" class="fira-code text-lg" style="color: var(--nt-bright)">—° N, —° E</p>
+            </div>
+            <!-- Response timing telemetry -->
+            <div>
+              <p class="outfit text-xs uppercase font-bold tracking-widest mb-1" style="color: var(--nt-dim)">Time Elapsed</p>
+              <p id="detail-elapsed" class="fira-code text-lg text-[#FF3B30]">—</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full incident situation report (SITREP) description -->
+        <div>
+          <p class="outfit text-xs uppercase font-bold tracking-widest mb-2" style="color: var(--nt-dim)">Incident Description</p>
+          <p id="detail-desc" class="outfit leading-relaxed" style="color: var(--nt-bright)">—</p>
+        </div>
+
+        <!-- Administrative command toolbar for incident state transitions -->
+        <div class="flex flex-wrap gap-4">
+          <!-- Button to transition state to 'en-route' -->
+          <button id="btn-en-route" class="btn-action flex-1 barlow-700 bg-[#3A86FF] text-white py-4 rounded font-bold tracking-tighter transition-all hover:brightness-110 active:scale-[0.98]">MARK EN ROUTE</button>
+          <!-- Button to transition state to 'resolved' -->
+          <button id="btn-resolve" class="btn-action flex-1 barlow-700 bg-[#34C759] text-white py-4 rounded font-bold tracking-tighter transition-all hover:brightness-110 active:scale-[0.98]">MARK RESOLVED</button>
+          <!-- Button to dismiss/ignore the incident -->
+          <button id="btn-dismiss" class="btn-action flex-1 barlow-700 bg-[#FF3B30] text-white py-4 rounded font-bold tracking-tighter transition-all hover:brightness-110 active:scale-[0.98]">DISMISSED</button>
+        </div>
+
+        <!-- Bidirectional communication thread with the reporting field user -->
+        <div class="space-y-4 pt-4 border-t border-[#1F3448]/40">
+          <h3 class="barlow-700 text-sm tracking-widest" style="color: var(--nt-dim)">COMMUNICATION_LOG</h3>
+          <!-- Log container for chat messages -->
+          <div id="chat-log" class="space-y-3 max-h-60 overflow-y-auto pr-1">
+            <!-- Chat history dynamically injected by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Real-time communication input interface -->
+      <div class="input-area p-4 border-t border-[#1F3448] sticky bottom-0">
+        <div class="relative flex items-center">
+          <!-- Message text input -->
+          <input id="chat-input" class="chat-input w-full rounded py-3 pl-4 pr-12 outfit border"
+                 placeholder="Type message to user..." type="text"/>
+          <!-- Dispatch message action button -->
+          <button id="chat-send" class="absolute right-3 text-[#F97316] transition-transform hover:scale-110">
+            <span class="material-symbols-outlined">send</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Column 3: Live regional telemetry and historical logs (30% width) -->
+  <section class="col-right col-scroll w-[30%]">
+    <div class="p-6 space-y-8">
+
+      <!-- High-level operational statistics dashboard -->
+      <div class="grid grid-cols-1 gap-4">
+        <!-- Live incident count stat chip -->
+        <div class="stat-chip p-4 rounded flex justify-between items-center border-l-2 border-[#FF6B35]">
+          <span class="outfit text-sm font-bold" style="color: var(--nt-dim)">ACTIVE INCIDENTS</span>
+          <span class="barlow-800 text-3xl text-[#FF6B35]">—</span>
+        </div>
+        <!-- Resolution frequency stat chip -->
+        <div class="stat-chip p-4 rounded flex justify-between items-center border-l-2 border-[#34C759]">
+          <span class="outfit text-sm font-bold" style="color: var(--nt-dim)">RESOLVED TODAY</span>
+          <span class="barlow-800 text-3xl text-[#34C759]">—</span>
+        </div>
+        <!-- Average mission response timing stat chip -->
+        <div class="stat-chip p-4 rounded flex justify-between items-center border-l-2 border-[#3A86FF]">
+          <span class="outfit text-sm font-bold" style="color: var(--nt-dim)">AVG RESPONSE TIME</span>
+          <span class="barlow-800 text-3xl text-[#3A86FF]">—</span>
+        </div>
+      </div>
+
+      <!-- Log of recent global community alerts dispatched -->
+      <div class="space-y-4">
+        <h3 class="barlow-700 text-sm tracking-widest px-1" style="color: var(--nt-dim)">RECENT ALERTS SENT</h3>
+        <div id="recent-alerts-list" class="space-y-3">
+          <!-- Alert summary cards injected by relief_dashboard.js -->
+          <div class="text-center py-4" style="color:var(--nt-dim)">
+            <span class="material-symbols-outlined block mb-1" style="opacity:0.4;font-size:20px">sync</span>
+            <p class="outfit text-xs" style="opacity:0.5">Loading alerts…</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Regional density heatmap matrix -->
+      <div class="space-y-4">
+        <h3 class="barlow-700 text-sm tracking-widest px-1" style="color: var(--nt-dim)">NEARBY INCIDENTS HEATMAP</h3>
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Zone intensity cells -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE A</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE B</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE C</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <div class="zone-cell border p-4 rounded flex flex-col justify-between aspect-video" style="background-color: var(--nt-card); border-color: var(--nt-card-border)">
+            <span class="barlow-800" style="color: var(--nt-dim)">ZONE D</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE E</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE F</span>
+            <span class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live tactical map for geographical situational awareness -->
+      <div class="mini-map rounded border relative overflow-hidden" style="height:220px;">
+        <!-- Leaflet map container (injected by relief_dashboard.js) -->
+        <!-- Live telemetry tag -->
+        <span class="absolute bottom-2 left-2 z-10 fira-code text-[10px] text-[#F97316] font-bold px-2 py-0.5 border border-[#F97316]/30 pointer-events-none" style="background-color: color-mix(in srgb, var(--nt-card) 80%, transparent)">LIVE_MAP_STREAM · 15 KM ZONE</span>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Unified system status footer -->
+<footer class="h-8 border-t flex items-center justify-between px-6">
+  <!-- System health and security metadata -->
+  <div class="fira-code text-[10px]" style="color: var(--nt-dim)">SYSTEM_STATUS: NOMINAL // ENCRYPTION: AES-256-ACTIVE</div>
+  <!-- Current operational coordinates -->
+  <div class="flex gap-4">
+    <span class="fira-code text-[10px]" style="color: var(--nt-dim)">LAT: 31.2649</span>
+    <span class="fira-code text-[10px]" style="color: var(--nt-dim)">LONG: 75.7002</span>
+  </div>
+</footer>
+
+<!-- Socket.io real-time synchronization library -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- Relief center dashboard specific functionality script -->
+<script src="../../js/relief_center/relief_dashboard.js"></script>
+
+<!-- Inline script for immediate socket initialization -->
+<script>
+  if (window.NexusAuth && typeof window.NexusAuth.initSocket === 'function') {
+    window.NexusAuth.initSocket();
+  }
+</script>
+
+</body>
+</html>
+

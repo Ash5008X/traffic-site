@@ -1,0 +1,308 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | My Mission</title>
+<!-- Tailwind CSS for utility-first styling -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- External typography fonts from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Barlow:wght@700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet"/>
+
+<!-- Link to external field unit dashboard CSS -->
+<link href="../../css/field_unit/dashboard.css" rel="stylesheet"/>
+</head>
+
+<!-- Body section -->
+<body>
+
+<!-- Global desktop navigation bar for field units -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Left side of the navbar containing brand identity -->
+  <div class="flex items-center gap-4">
+    <!-- Brand identity block -->
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Desktop navigation links -->
+  <div class="hidden md:flex items-center gap-8">
+    <!-- Link to the active mission dashboard (currently active) -->
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="field_desktop.html">My Mission</a>
+    <!-- Link to the historical incidents feed -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_incidents.html">Incidents</a>
+    <!-- Link to the field unit's profile -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_profile.html">Profile</a>
+  </div>
+
+  <!-- Right side of the navbar containing utility buttons -->
+  <div class="flex items-center gap-4">
+    <!-- Notifications toggle button -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)">
+      <!-- Notifications icon -->
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)"
+            id="theme-toggle">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+
+    <!-- Field unit avatar image -->
+    <div class="user-avatar w-9 h-9 rounded-full border-2 overflow-hidden cursor-pointer transition-colors hover:border-[#F97316]" style="border-color: var(--nt-nav-border);">
+      <img alt="Field Unit Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu2n7h8gSixH0Ze_-n7sxn3-MtOm1aGO64RXPk0sWcTqZaSMo_pnTxdUoeKxsjs79m43NQvZzjMfKUPRNli4ddMcMpZXyylDN01im0anZWJGreAjFieLBtbLf6qYDJsNrI3XpCnmdZkInRu8enBc7hTTHM1swoKPt40o69SXruKSo_NujfjG59l_LLoH6Xry7KBDFCw421H6ojsCmBt-zAht9Bbjmveh1ubeSrZPvEHgPGkJtVbWAklyCdGIFv5rFqQmHUYyhjH9c"/>
+    </div>
+  </div>
+</nav>
+
+<!-- Main content layout using a three-column grid -->
+<div class="main-grid">
+
+  <!-- Left column for mission control and personal stats -->
+  <aside class="col-left col-scroll">
+
+    <!-- Active mission card for urgent dispatch data -->
+    <div id="active-mission-card" class="mission-card pulse-critical hidden">
+      <!-- Mission status header -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span class="mission-label">Active Mission</span>
+        <span id="mission-severity" class="critical-badge">Critical</span>
+      </div>
+      <!-- Primary incident title -->
+      <div id="mission-title" class="mission-title">--</div>
+      <!-- Mission reference ID -->
+      <div id="mission-id" class="mission-ref">--</div>
+
+      <!-- Grid layout for mission metadata -->
+      <div class="mission-meta-grid">
+        <!-- Geographical coordinates row -->
+        <div>
+          <span class="mission-meta-key">Coordinates</span>
+          <span id="mission-coords" class="mission-meta-val">--</span>
+        </div>
+        <!-- Time tracking since dispatch -->
+        <div>
+          <span class="mission-meta-key">Elapsed Time</span>
+          <span id="mission-elapsed" class="mission-meta-val warn">--:--</span>
+        </div>
+      </div>
+
+      <!-- Action button to mark arrival at the scene -->
+      <button id="btn-arrived" class="arrive-btn">✓ I Have Arrived</button>
+      <!-- Action button to request additional assistance -->
+      <button id="btn-backup" class="backup-btn">⚠ Request Backup</button>
+    </div>
+
+    <!-- Fallback card displayed when no mission is assigned -->
+    <div id="no-mission-card" class="mission-card" style="opacity: 0.5; border-style: dashed; display: flex; align-items: center; justify-content: center; height: 180px;">
+      <span class="outfit text-sm">NO ACTIVE MISSION ASSIGNED</span>
+    </div>
+
+    <!-- Performance statistics for the current shift -->
+    <div class="stats-card">
+      <!-- Section title -->
+      <div class="stats-card-title">My Stats Today</div>
+      <!-- Row for total missions assigned -->
+      <div class="stat-row">
+        <span class="stat-label">Missions Assigned</span>
+        <span id="stat-assigned" class="stat-val">00</span>
+      </div>
+      <!-- Row for total missions resolved -->
+      <div class="stat-row">
+        <span class="stat-label">Missions Completed</span>
+        <span id="stat-completed" class="stat-val">00</span>
+      </div>
+      <!-- Average response time calculation -->
+      <div class="stat-row">
+        <span class="stat-label">Avg Response Time</span>
+        <span id="stat-response" class="stat-val">0<small> M</small></span>
+      </div>
+      <!-- Cumulative distance covered during mission travel -->
+      <div class="stat-row">
+        <span class="stat-label">Distance Covered</span>
+        <span id="stat-distance" class="stat-val">0.0<small> KM</small></span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Center column for detailed incident briefing and resolution -->
+  <div class="col-center col-scroll">
+
+    <!-- Empty state displayed when no incident is selected for briefing -->
+    <div id="briefing-empty" class="flex flex-col items-center justify-center gap-4 h-full" style="color:var(--nt-dim)">
+       <!-- Assignment icon -->
+       <span class="material-symbols-outlined" style="font-size:56px;opacity:0.3">assignment_late</span>
+       <!-- Helper text -->
+       <p class="outfit text-sm tracking-wider" style="opacity:0.4">NO ACTIVE MISSION TO DISPLAY</p>
+    </div>
+
+    <!-- Briefing card containing full incident specifications -->
+    <div id="briefing-card" class="briefing-card hidden">
+      <!-- Decorative top border -->
+      <div class="briefing-top-bar"></div>
+      <!-- Body of the briefing containing operational data -->
+      <div class="briefing-body">
+
+        <!-- Incident header -->
+        <div style="position:relative;margin-bottom:14px;">
+          <!-- Unique incident identifier -->
+          <div id="brief-id" class="incident-ref">Incident_ID // --</div>
+          <!-- Incident title -->
+          <div id="brief-title" class="incident-title">--</div>
+          <!-- Severity badge indicator -->
+          <span id="brief-severity" class="critical-badge" style="position:absolute;top:0;right:0;">--</span>
+        </div>
+
+        <!-- Real-time dispatch status alert -->
+        <div class="dispatch-alert">
+          <!-- Emergency icon -->
+          <span class="material-symbols-outlined">emergency</span>
+          <!-- Dynamic status text -->
+          <span id="dispatch-text" class="dispatch-alert-text">Unit Dispatched</span>
+        </div>
+
+        <!-- Detailed textual description of the incident -->
+        <p id="brief-desc" class="briefing-desc">--</p>
+
+        <!-- Grid of primary briefing chips -->
+        <div class="meta-chips">
+          <!-- Geospatial coordinates chip -->
+          <div class="meta-chip">
+            <span class="meta-chip-key">Coordinates</span>
+            <span id="brief-coords" class="meta-chip-val">--</span>
+          </div>
+          <!-- Timestamp chip for when the incident was reported -->
+          <div class="meta-chip">
+            <span class="meta-chip-key">Reported At</span>
+            <span id="brief-time" class="meta-chip-val">--</span>
+          </div>
+        </div>
+
+        <!-- Section for final mission resolution -->
+        <div style="margin-top: 40px;">
+          <!-- Primary button to mark the mission as successfully completed -->
+          <button id="btn-resolve" class="resolve-btn">
+            <!-- Completion icon -->
+            <span class="material-symbols-outlined" style="font-size:20px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">check_circle</span>
+            Mark Incident Resolved
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right column for city-wide incident heatmap and mapping -->
+  <section class="col-right col-scroll" style="padding: 24px;">
+    <!-- Container for situational awareness components -->
+    <div class="space-y-8">
+      <!-- Statistical heatmap grid showing activity per zone -->
+      <div class="space-y-4">
+        <!-- Section title -->
+        <h3 class="barlow-700 text-sm tracking-widest px-1" style="color: var(--nt-dim)">NEARBY INCIDENTS HEATMAP</h3>
+        <!-- Grid layout for the 6 zones -->
+        <div class="grid grid-cols-2 gap-2">
+          <!-- Individual zone cell: Zone A -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE A</span>
+            <span id="zone-A" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <!-- Individual zone cell: Zone B -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE B</span>
+            <span id="zone-B" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <!-- Individual zone cell: Zone C -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE C</span>
+            <span id="zone-C" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <!-- Individual zone cell: Zone D -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color: var(--nt-dim)">ZONE D</span>
+            <span id="zone-D" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <!-- Individual zone cell: Zone E -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE E</span>
+            <span id="zone-E" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+          <!-- Individual zone cell: Zone F -->
+          <div class="zone-cell bg-[#1F3448]/30 border border-[#1F3448]/50 p-4 rounded flex flex-col justify-between aspect-video">
+            <span class="barlow-800" style="color:var(--nt-dim)">ZONE F</span>
+            <span id="zone-F" class="fira-code text-2xl" style="color: var(--nt-bright)">00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive map visualization for current mission pathing -->
+      <div class="mini-map rounded border relative overflow-hidden" style="height:220px; background: #0D1B2A; display: flex; align-items: center; justify-content: center;">
+        <!-- Global map icon -->
+        <span class="material-symbols-outlined text-4xl" style="color: var(--nt-dim)">map</span>
+        <!-- Static overlay label for system identification -->
+        <span class="absolute bottom-2 left-2 z-10 fira-code text-[10px] text-[#F97316] font-bold px-2 py-0.5 border border-[#F97316]/30 pointer-events-none" style="background-color: #0D1B2A">LIVE_MAP_STREAM · 15 KM ZONE</span>
+      </div>
+    </div>
+
+</div>
+
+<!-- Global system status footer -->
+<footer class="footer-bar">
+  <!-- Left side of the footer for identification metadata -->
+  <div class="footer-left">
+    <!-- Unique unit identification reference -->
+    <span class="footer-text purple">Unit_ID // 992-AX</span>
+    <!-- Data security/encryption identification -->
+    <span class="footer-text muted">Encryption_AES_256</span>
+  </div>
+  <!-- Right side of the footer for real-time telemetry -->
+  <div class="footer-right">
+    <!-- Current live GPS coordinates -->
+    <span class="footer-text muted">GPS: 34.0522 N, 118.2437 W</span>
+    <!-- Operational status indicator -->
+    <div class="footer-status">
+      <!-- Status dot -->
+      <div class="footer-dot"></div>
+      <!-- Status text label -->
+      <span class="footer-text" style="color:var(--teal);">Status: Active_Staging</span>
+    </div>
+  </div>
+</footer>
+
+<!-- External WebSocket logic via Socket.io -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- Field unit dashboard specific functionality script -->
+<script src="../../js/field_unit/field_desktop.js"></script>
+<!-- Inline initialization script for secure WebSocket connection -->
+<script>
+  if (window.NexusAuth && typeof window.NexusAuth.initSocket === 'function') {
+    window.NexusAuth.initSocket();
+  }
+</script>
+
+</body>
+</html>
+

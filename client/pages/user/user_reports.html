@@ -1,0 +1,226 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | My Reports</title>
+
+<!-- External typography fonts from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet"/>
+
+<!-- Link to external user reports CSS -->
+<link href="../../css/user/reports.css" rel="stylesheet"/>
+
+</head>
+
+<!-- Body section -->
+<body>
+
+<!-- Global desktop navigation bar -->
+<nav class="navbar">
+  <!-- Left side of the navbar containing brand and links -->
+  <div class="navbar-left">
+    <!-- Brand identity block -->
+    <div class="brand">
+      <!-- Brand icon container -->
+      <div class="brand-mark">
+        <!-- Traffic icon -->
+        <span class="material-symbols-outlined">traffic</span>
+      </div>
+      <!-- Brand name text -->
+      <span class="brand-name">NexusTraffic</span>
+    </div>
+    <!-- Desktop navigation links -->
+    <nav class="nav-links">
+      <!-- Link to the home page -->
+      <a href="#" class="nav-link">Home</a>
+      <!-- Link to the user's reports history (currently active) -->
+      <a href="#" class="nav-link active">My Reports</a>
+      <!-- Link to the alerts page -->
+      <a href="#" class="nav-link">Alerts</a>
+      <!-- Link to the user's profile -->
+      <a href="#" class="nav-link">Profile</a>
+    </nav>
+  </div>
+
+  <!-- Right side of the navbar containing search and utility tools -->
+  <div class="navbar-right">
+    <!-- Search bar wrapper -->
+    <div class="search-wrap">
+      <!-- Search icon -->
+      <span class="material-symbols-outlined search-icon-el">search</span>
+      <!-- Search input field -->
+      <input class="search-input" type="text" placeholder="Search incidents…" />
+    </div>
+    <!-- Vertical separator line -->
+    <div class="divider-v"></div>
+    <!-- Notifications toggle button -->
+    <button class="icon-btn">
+      <!-- Notifications icon -->
+      <span class="material-symbols-outlined">notifications</span>
+      <!-- Unread indicator dot -->
+      <span class="notif-dot"></span>
+    </button>
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+    <!-- User avatar image -->
+    <div class="user-avatar">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjevRVLuYByNoqxLQvD6KtQyp3_J1CH-konNTattLwHJoLNkSQ_YFugHsLE9d9YMBFRMuIYxNMMfJzpFftJH2zwOH7vHH0lgHyfp-3qhFMxb5wvio5dJiZjn6_OItZu4bH1M0XTq3edeHsAfMNyoxeNGTJyBH5fK8O2RXX6liykIRXzub652oYl0gSzPGAkCD9muhqRdmoZTsTWeF7tu_OE2IXVJR4nqDo7xCfXLpRvx_h3DkZzTXja64guQbs3M0yam5jRYn5zo" alt="User Avatar" />
+    </div>
+  </div>
+</nav>
+
+<!-- Main content layout using a split column design -->
+<div class="page-layout">
+
+  <!-- Left column for report statistics and lists -->
+  <section class="left-col">
+
+    <!-- Grid containing high-level report statistics -->
+    <div class="stat-grid">
+      <!-- Card for the total count of reports -->
+      <div class="card stat-card accent">
+        <div class="stat-label">Total Reports</div>
+        <div class="stat-value" id="stat-total">--</div>
+      </div>
+      <!-- Card for the count of active reports -->
+      <div class="card stat-card critical">
+        <div class="stat-label">Active</div>
+        <div class="stat-value" id="stat-active">--</div>
+      </div>
+      <!-- Card for the count of resolved reports -->
+      <div class="card stat-card success">
+        <div class="stat-label">Resolved</div>
+        <div class="stat-value" id="stat-resolved">--</div>
+      </div>
+    </div>
+
+    <!-- Section for displaying current active reports -->
+    <div>
+      <!-- Header for the active reports section -->
+      <div class="section-head">
+        <!-- Title with count badge -->
+        <span class="section-label">
+          Active Reports
+          <span class="section-badge" id="active-reports-count">0</span>
+        </span>
+        <!-- Secondary status label -->
+        <span class="section-meta">
+          <span class="live-dot"></span>
+          LIVE_SYSTEM_FEED
+        </span>
+      </div>
+
+      <!-- Container where active report cards will be dynamically injected -->
+      <div id="active-reports-list">
+        <!-- Injected by user_reports.js -->
+      </div>
+    </div>
+
+    <!-- Section for displaying historical past reports -->
+    <div>
+      <!-- Header for the past reports section -->
+      <div class="section-head">
+        <!-- Section title -->
+        <span class="section-label">Past Reports</span>
+        <!-- Row of filter buttons for the past reports table -->
+        <div class="filter-row">
+          <!-- Show all past reports -->
+          <button class="filter-btn active">All</button>
+          <!-- Show only resolved reports -->
+          <button class="filter-btn">Resolved</button>
+          <!-- Show only dismissed reports -->
+          <button class="filter-btn">Dismissed</button>
+        </div>
+      </div>
+
+      <!-- Container where past report rows will be dynamically injected -->
+      <div class="past-table" id="past-reports-list">
+        <!-- Injected by user_reports.js -->
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Right column for the detailed report view -->
+  <aside class="right-col">
+    <!-- Empty state displayed when no report is selected -->
+    <div class="card detail-panel" id="report-detail-empty" style="display: flex; align-items: center; justify-content: center; min-height: 400px; color: var(--text-muted);">
+      Select a report to view details
+    </div>
+
+    <!-- Detailed panel for viewing specific incident data -->
+    <div class="card detail-panel" id="report-detail-panel" style="display: none;">
+      <!-- Header of the detail panel -->
+      <div class="detail-header">
+        <!-- Panel title -->
+        <span class="detail-header-title">Report Detail</span>
+        <!-- Panel metadata tag -->
+        <span class="detail-header-meta">OPERATIONAL_DATA // ARCHIVE</span>
+      </div>
+      <!-- Body of the detail panel containing report information -->
+      <div class="detail-body">
+        <!-- Map visualization for the incident location -->
+        <div class="detail-map">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlg1gbwnw0mQyh8tejwxvHAs6roRIzsxj96_yPxWBmOYxOqvtUqPe2ZJec6rgeWKMNb_DUfJ6eQ4WeRa1c2aHRxd5DV1r1mrIvPRTCdjmfuHDpVpAO2YI5B17K-wTDfLmoXuvgzZvC_9fs0N_NwQp-tAdNBzmQtMwo0KSAUaTUW3kaOKFijGznVtAHXI5xtjM5ZIkctE6fbSSTcTzJ57BVLzDCb8fsLggDIgFCxH2KN2yn_HIhyIwd008cszBKeGEyCLxCji12qQk" alt="Incident Map View" />
+        </div>
+
+        <!-- Row showing the unique ticket ID -->
+        <div class="detail-ticket-row">
+          <span class="detail-ticket-id" id="detail-ticket-id">TICKET_ID // ---</span>
+        </div>
+
+        <!-- Primary title of the report -->
+        <div class="detail-title" id="detail-title">---</div>
+        <!-- Geospatial coordinates text -->
+        <div class="detail-coords" id="detail-coords">GEO_LOC // ---</div>
+        
+        <!-- Grid layout for secondary report metadata -->
+        <div style="margin-top: 16px; display: grid; gap: 8px;">
+          <!-- Incident type row -->
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="mono-meta">TYPE:</span>
+            <span id="detail-type" style="color: var(--text); font-weight: 500;">---</span>
+          </div>
+          <!-- Incident severity row -->
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span class="mono-meta">SEVERITY:</span>
+            <span id="detail-severity" style="color: var(--text); font-weight: 500;">---</span>
+          </div>
+        </div>
+
+        <!-- Incident text description -->
+        <p class="detail-desc" id="detail-desc" style="margin-top: 16px;">---</p>
+
+        <!-- Container for action buttons within the detail view -->
+        <div class="detail-actions" style="margin-top: auto; padding-top: 24px;">
+          <!-- Button to close the detail panel -->
+          <button class="btn btn-ghost" id="detail-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- User reports specific functionality script -->
+<script src="../../js/user_reports.js"></script>
+
+</body>
+</html>
+

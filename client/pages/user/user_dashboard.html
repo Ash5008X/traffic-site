@@ -1,0 +1,393 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+  <!-- Character encoding for the document -->
+  <meta charset="UTF-8" />
+  <!-- Responsive viewport settings -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Page title -->
+  <title>NexusTraffic | Dashboard</title>
+
+  <!-- Distinctive type stack: Bricolage Grotesque (display) + Figtree (body) + JetBrains Mono (data) -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Material Symbols for icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet" />
+
+  <!-- Link to external user dashboard CSS -->
+  <link rel="stylesheet" href="../../css/user/dashboard.css">
+</head>
+
+<!-- Body section with padding-bottom for mobile navigation spacing -->
+<body class="pb-20">
+
+<!-- Global navigation bar -->
+<header class="navbar">
+  <!-- Left side of the navbar containing brand and main links -->
+  <div class="navbar-left">
+    <!-- Brand identity link -->
+    <a href="#" class="brand">
+      <!-- Brand icon container -->
+      <div class="brand-mark">
+        <!-- Traffic icon -->
+        <span class="material-symbols-outlined">traffic</span>
+      </div>
+      <!-- Brand text -->
+      <span class="brand-name">NexusTraffic</span>
+    </a>
+
+    <!-- Primary navigation links -->
+    <nav>
+      <!-- Unordered list of navigation items -->
+      <ul class="nav-links">
+        <!-- Link to the home/dashboard page (active state) -->
+        <li><a href="#" class="nav-link active">Home</a></li>
+        <!-- Link to the user's reports history -->
+        <li><a href="#" class="nav-link">My Reports</a></li>
+        <!-- Link to the real-time alerts page -->
+        <li><a href="#" class="nav-link">Alerts</a></li>
+        <!-- Link to the user's profile settings -->
+        <li><a href="#" class="nav-link">Profile</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Right side of the navbar containing search and utility actions -->
+  <div class="navbar-right">
+    <!-- Search bar wrapper -->
+    <div class="search-wrap">
+      <!-- Search icon -->
+      <span class="material-symbols-outlined search-icon-el">search</span>
+      <!-- Search input field -->
+      <input class="search-input" type="text" placeholder="Search incidents…" />
+    </div>
+
+    <!-- Notifications toggle button -->
+    <button class="icon-btn" title="Notifications">
+      <!-- Notification icon -->
+      <span class="material-symbols-outlined">notifications</span>
+      <!-- Indicator dot for unread notifications -->
+      <span class="notif-dot"></span>
+    </button>
+
+    <!-- Vertical separator line -->
+    <div class="divider-v"></div>
+
+    <!-- Light/Dark mode theme toggle button -->
+    <button class="theme-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle light/dark mode">
+      <!-- Theme icon (changes between light_mode and dark_mode) -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+
+    <!-- User profile avatar container -->
+    <div class="user-avatar" title="My Profile">
+      <!-- Avatar image -->
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZiBRP_CvTVIZdYcSMWQBJtFYMoQ-t7OFLW48ZG2u98c9NXXJ-T7Zh-V9SMc_3qD7NS0usc3oHhZyRTWailotbnOUEwjQFRfootUU7nqQWrkAK82q-AvTaqL0746OHmmVmS4rPo3ayKkHA_NU7scpY-tDxAXlUyePtthYD7edYQsLQOAafzx-OGZ_svqG1Vi6GGFu0l-jZPlVp2NFIQcVFEJJ0vNW9Ydf5g77biUjQxmwa8c3OGt1WaFSVQh8aszwNgSdd5kJXZAc"
+        alt="User avatar"
+      />
+    </div>
+  </div>
+</header>
+
+
+<!-- Main content area using a grid layout -->
+<main class="page-layout">
+
+  <!-- Left column for primary actions and feeds -->
+  <div class="left-col">
+
+    <!-- Hero card with primary action: Report Incident -->
+    <div class="card hero-card">
+      <!-- Hero header containing live status and location -->
+      <div class="hero-eyebrow">
+        <!-- Live status badge -->
+        <div class="badge badge-live">
+          <!-- Pulsing animation dot -->
+          <span class="live-pulse"></span>
+          LIVE
+        </div>
+        <!-- Current location text -->
+        <span class="hero-location">Sector 01 · Los Angeles Metro</span>
+      </div>
+      <!-- Main hero title -->
+      <h1 class="hero-title">Report an Incident</h1>
+      <!-- Description text for the report action -->
+      <p class="hero-sub">Help keep traffic moving — community reports power real-time alerts across the network.</p>
+      <!-- Action buttons for reporting -->
+      <div class="btn-row">
+        <!-- Button to trigger the accident reporting modal -->
+        <button class="btn btn-danger" id="report-accident-btn">
+          <!-- Warning icon -->
+          <span class="material-symbols-outlined">warning</span>
+          Report Accident
+        </button>
+      </div>
+    </div>
+
+    <!-- Reports section containing user's recent activity feed -->
+    <div>
+      <!-- Section header with label and metadata -->
+      <div class="section-head">
+        <!-- Primary section label -->
+        <span class="section-label">Reports</span>
+        <!-- Secondary section description -->
+        <span class="section-meta">Recent Activity</span>
+      </div>
+      <!-- Feed card containing the list of reports -->
+      <div class="card feed-card">
+        <!-- Header for the feed card -->
+        <div class="feed-header">
+          <!-- Title text for the feed -->
+          <span class="feed-header-title">My Recent Reports</span>
+        </div>
+        <!-- Container for dynamically injected report rows -->
+        <div class="feed-body" id="user-reports-list">
+          <!-- Placeholder row displayed while loading -->
+          <div class="feed-row" style="opacity: 0.5;">
+            <div class="feed-row-main">
+              <div class="feed-row-body">Loading reports...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right column for status tracking and nearby alerts -->
+  <div class="right-col">
+
+    <!-- Active monitoring indicator -->
+    <div class="mon-row">
+      <!-- Pulsing monitoring dot -->
+      <div class="mon-dot"></div>
+      <!-- Monitoring label text -->
+      <span class="mon-label">Active Monitoring</span>
+    </div>
+
+    <!-- Status card for tracking an active incident report -->
+    <div class="card status-card" id="active-report-card" style="display: none;">
+      <!-- Top row of the status card containing reference and time -->
+      <div class="status-card-top">
+        <!-- Reference ID badge -->
+        <div class="badge badge-ref" id="active-report-ref">Ref: --</div>
+        <!-- Time elapsed badge -->
+        <div class="badge badge-eta">
+          <!-- Schedule icon -->
+          <span class="material-symbols-outlined" style="font-size: 12px;">schedule</span>
+          <!-- Time text -->
+          <span id="active-report-time">Just now</span>
+        </div>
+      </div>
+      <!-- Headline for the status card -->
+      <h2 class="status-headline" id="active-report-title">Monitoring Report</h2>
+      <!-- Description of the current status -->
+      <p class="status-sub" id="active-report-desc">Your report is currently being processed by the network.</p>
+
+      <!-- Visual progress timeline for the report status -->
+      <div class="timeline" id="active-report-timeline">
+        <!-- Background track for the timeline -->
+        <div class="tl-track"></div>
+        <!-- Foreground fill representing progress -->
+        <div class="tl-fill" style="width: 25%"></div>
+        <!-- Container for the individual timeline steps -->
+        <div class="tl-steps">
+
+          <!-- Step 1: Pending (initial submission) -->
+          <div class="tl-step">
+            <!-- Progress dot for step 1 -->
+            <div class="tl-dot active" id="tl-step-1-dot">
+              <!-- Completed icon -->
+              <span class="material-symbols-outlined">check</span>
+            </div>
+            <!-- Label for step 1 -->
+            <span class="tl-label active" id="tl-step-1-label">Pending</span>
+          </div>
+
+          <!-- Step 2: Assigned (unit dispatching) -->
+          <div class="tl-step">
+            <!-- Progress dot for step 2 -->
+            <div class="tl-dot pending" id="tl-step-2-dot">
+              <!-- Completed icon (hidden until active) -->
+              <span class="material-symbols-outlined">check</span>
+            </div>
+            <!-- Label for step 2 -->
+            <span class="tl-label pending" id="tl-step-2-label">Assigned</span>
+          </div>
+
+          <!-- Step 3: En Route (unit traveling) -->
+          <div class="tl-step">
+            <!-- Progress dot for step 3 -->
+            <div class="tl-dot pending" id="tl-step-3-dot">
+              <!-- Vehicle icon -->
+              <span class="material-symbols-outlined">directions_car</span>
+            </div>
+            <!-- Label for step 3 -->
+            <span class="tl-label pending" id="tl-step-3-label">En Route</span>
+          </div>
+
+          <!-- Step 4: Resolved (incident finished) -->
+          <div class="tl-step">
+            <!-- Progress dot for step 4 -->
+            <div class="tl-dot pending" id="tl-step-4-dot">4</div>
+            <!-- Label for step 4 -->
+            <span class="tl-label pending" id="tl-step-4-label">Resolved</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Button to manually resolve or close a report -->
+      <button id="resolve-report-btn" class="btn btn-primary" style="width: 100%; margin-top: 24px; background: #2EC4B6; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;">
+        <!-- Checkmark icon -->
+        <span class="material-symbols-outlined" style="font-size: 18px;">task_alt</span>
+        Resolve Report
+      </button>
+    </div>
+
+    <!-- Fallback card displayed when there are no active reports -->
+    <div class="card status-card" id="no-active-report-card">
+      <div style="text-align: center; padding: 20px 0; color: var(--text-muted);">
+        <!-- Success icon -->
+        <span class="material-symbols-outlined" style="font-size: 32px; margin-bottom: 8px;">check_circle</span>
+        <!-- Empty state text -->
+        <div>No active reports to monitor.</div>
+      </div>
+    </div>
+
+    <!-- Section for displaying alerts nearby based on user location -->
+    <div>
+      <!-- Section header with distance metadata -->
+      <div class="section-head" style="margin-bottom: 10px;">
+        <!-- Primary section label -->
+        <span class="section-label">Alerts Near You</span>
+        <!-- Search radius text -->
+        <span class="section-meta">2.5 km</span>
+      </div>
+      <!-- Container for dynamically injected nearby alert items -->
+      <div class="alerts-list" id="nearby-alerts-list">
+        <!-- Placeholder text displayed while loading -->
+        <div style="text-align: center; padding: 20px 0; color: var(--text-muted);">
+          Loading nearby alerts...
+        </div>
+      </div>
+    </div>
+
+    <!-- System information footer -->
+    <div class="card sys-footer">
+      <!-- System status and version details -->
+      <p class="sys-footer-text">
+        Encrypted feed streams · <span class="sys-version">v9.4.0</span><br />
+        Data aggregated via NexusCore OS
+      </p>
+    </div>
+
+  </div>
+</main>
+
+
+<!-- Modal overlay for reporting incidents -->
+<div class="modal-overlay" id="report-modal">
+  <!-- Content box for the report form -->
+  <div class="modal-content">
+    <!-- Header of the modal containing title and close action -->
+    <div class="modal-header">
+      <!-- Main modal title -->
+      <h2 class="modal-title">Report an Incident</h2>
+      <!-- Close button for the modal -->
+      <button class="icon-btn" id="close-modal-btn">
+        <!-- Close icon -->
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <!-- Form for submitting a new report -->
+    <form id="report-form">
+      <!-- Input group for incident type selection -->
+      <div class="form-group">
+        <!-- Label for incident type -->
+        <label for="report-type">Type</label>
+        <!-- Select element for incident categories -->
+        <select id="report-type" class="form-control" required>
+          <!-- Default placeholder option -->
+          <option value="" disabled selected>Select Incident Type</option>
+          <!-- Congestion category -->
+          <option value="Congestion">Congestion</option>
+          <!-- Medical emergency category -->
+          <option value="Medical">Medical</option>
+          <!-- Traffic accident category -->
+          <option value="Accident">Accident</option>
+        </select>
+      </div>
+      
+      <!-- Input group for severity level selection -->
+      <div class="form-group">
+        <!-- Label for severity level -->
+        <label for="report-severity">Severity</label>
+        <!-- Select element for priority levels -->
+        <select id="report-severity" class="form-control" required>
+          <!-- Default placeholder option -->
+          <option value="" disabled selected>Select Severity Level</option>
+          <!-- Low priority -->
+          <option value="low">Low</option>
+          <!-- Medium priority -->
+          <option value="medium">Medium</option>
+          <!-- High priority -->
+          <option value="high">High</option>
+          <!-- Critical priority (highest) -->
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+
+      <!-- Input group for incident location -->
+      <div class="form-group">
+        <!-- Label for location -->
+        <label for="report-location">Location</label>
+        <!-- Text input for location description -->
+        <input type="text" id="report-location" class="form-control" placeholder="e.g. Junction 4, Main St." required>
+      </div>
+
+      <!-- Input group for additional report details -->
+      <div class="form-group">
+        <!-- Label for description -->
+        <label for="report-description">Description</label>
+        <!-- Textarea for detailed information -->
+        <textarea id="report-description" class="form-control" rows="3" placeholder="Provide additional details..." required></textarea>
+      </div>
+
+      <!-- Footer containing action buttons for the modal -->
+      <div class="modal-footer">
+        <!-- Ghost button to cancel and close the modal -->
+        <button type="button" class="btn btn-ghost" id="cancel-report-btn">Cancel</button>
+        <!-- Red button to submit the incident report -->
+        <button type="submit" class="btn btn-danger" id="submit-report-btn">
+          <!-- Send icon -->
+          <span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+          Submit Report
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Socket.io library for real-time communications -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- User dashboard specific functionality script -->
+<script src="../../js/user_dashboard.js"></script>
+<!-- Inline script for dashboard initialization -->
+<script>
+  // Initialize real-time tactical data link via WebSocket if available
+  if (window.NexusAuth && typeof window.NexusAuth.initSocket === 'function') {
+    window.NexusAuth.initSocket();
+  }
+</script>
+
+</body>
+</html>
+

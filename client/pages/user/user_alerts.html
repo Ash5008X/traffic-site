@@ -1,0 +1,289 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | Alerts</title>
+
+
+<!-- External typography fonts from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Barlow+Condensed:wght@700;800&family=Fira+Code:wght@500&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet"/>
+
+
+<!-- Link to external user alerts CSS -->
+<link rel="stylesheet" href="../../css/user/alerts.css">
+
+</head>
+
+<!-- Body section -->
+<body>
+
+<!-- Global desktop navigation bar -->
+<nav class="navbar">
+  <!-- Left side of the navbar containing brand and links -->
+  <div class="navbar-left">
+    <!-- Brand identity block -->
+    <div class="brand">
+      <!-- Brand icon container -->
+      <div class="brand-mark">
+        <!-- Traffic icon -->
+        <span class="material-symbols-outlined">traffic</span>
+      </div>
+      <!-- Brand name text -->
+      <span class="brand-name">NexusTraffic</span>
+    </div>
+    <!-- Desktop navigation links -->
+    <nav class="nav-links">
+      <!-- Link to the home page -->
+      <a href="#" class="nav-link">Home</a>
+      <!-- Link to the user's reports history -->
+      <a href="#" class="nav-link">My Reports</a>
+      <!-- Link to the alerts page (currently active) -->
+      <a href="#" class="nav-link active">Alerts</a>
+      <!-- Link to the user's profile -->
+      <a href="#" class="nav-link">Profile</a>
+    </nav>
+  </div>
+
+  <!-- Right side of the navbar containing search and utility tools -->
+  <div class="navbar-right">
+    <!-- Search bar wrapper -->
+    <div class="search-wrap">
+      <!-- Search icon -->
+      <span class="material-symbols-outlined search-icon-el">search</span>
+      <!-- Search input field -->
+      <input class="search-input" type="text" placeholder="Search incidents…" />
+    </div>
+    <!-- Vertical separator line -->
+    <div class="divider-v"></div>
+    <!-- Notifications container -->
+    <div class="relative" style="position: relative;">
+      <!-- Notifications toggle button -->
+      <button class="icon-btn" id="navbar-bell-btn">
+        <!-- Notification icon -->
+        <span class="material-symbols-outlined">notifications</span>
+        <!-- Badge showing the number of unread notifications -->
+        <span class="notif-dot" id="navbar-bell-count" style="display:none;">0</span>
+      </button>
+      <!-- Dropdown menu for viewing individual notifications -->
+      <div id="navbar-bell-dropdown" style="display:none; position:absolute; top:100%; right:0; width:300px; background:var(--surface-2); border:1px solid var(--border-color); border-radius:4px; box-shadow:0 4px 12px rgba(0,0,0,0.5); z-index:1000; max-height:400px; overflow-y:auto; padding:8px 0;">
+        <!-- Dynamic notifications will be injected here by JS -->
+      </div>
+    </div>
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="theme-btn" id="theme-toggle" aria-label="Toggle theme">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+    <!-- User avatar image -->
+    <div class="user-avatar">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEjevRVLuYByNoqxLQvD6KtQyp3_J1CH-konNTattLwHJoLNkSQ_YFugHsLE9d9YMBFRMuIYxNMMfJzpFftJH2zwOH7vHH0lgHyfp-3qhFMxb5wvio5dJiZjn6_OItZu4bH1M0XTq3edeHsAfMNyoxeNGTJyBH5fK8O2RXX6liykIRXzub652oYl0gSzPGAkCD9muhqRdmoZTsTWeF7tu_OE2IXVJR4nqDo7xCfXLpRvx_h3DkZzTXja64guQbs3M0yam5jRYn5zo" alt="User Avatar" />
+    </div>
+  </div>
+</nav>
+
+<!-- Main content layout using a split column design -->
+<main class="main-wrap">
+
+  <!-- Left column containing the scrollable alerts feed and filters -->
+  <div class="left-col">
+
+    <!-- Horizontal scroll bar for filtering alerts by category -->
+    <div class="filter-bar">
+      <!-- All categories filter -->
+      <button class="chip active">All</button>
+      <!-- Accident category filter -->
+      <button class="chip">Accident</button>
+      <!-- Congestion category filter -->
+      <button class="chip">Congestion</button>
+      <!-- Route Update category filter -->
+      <button class="chip">Route Update</button>
+      <!-- System event category filter -->
+      <button class="chip">System</button>
+      <!-- All Clear category filter -->
+      <button class="chip">All Clear</button>
+    </div>
+
+    <!-- Section for real-time active alerts -->
+    <section>
+      <!-- Header for the active alerts section -->
+      <div class="section-header">
+        <!-- Title label -->
+        <span class="section-title">Active Alerts</span>
+        <!-- Badge indicating live data status -->
+        <div class="live-badge">
+          <!-- Pulsing animation dot -->
+          <div class="live-dot pulse-red"></div>
+          <!-- Label text -->
+          <span class="live-text">Live</span>
+          <!-- Number of active alerts currently displayed -->
+          <span class="live-count" id="active-alerts-count">0</span>
+        </div>
+      </div>
+
+      <!-- Container for dynamically generated active alert cards -->
+      <div class="alert-grid" id="active-alerts-list">
+        <!-- Dynamic alert cards injected by user_alerts.js -->
+      </div>
+    </section>
+
+    <!-- Section for historical alerts from earlier in the day -->
+    <section>
+      <!-- Header for the past alerts section -->
+      <div class="section-header">
+        <!-- Secondary section title -->
+        <span class="section-title" style="color:var(--text-muted);font-size:16px;">Earlier Today</span>
+      </div>
+      <!-- List container for older alert rows -->
+      <div style="display:flex;flex-direction:column;gap:8px;" id="past-alerts-list">
+        <!-- Dynamic past alert rows injected by user_alerts.js -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Right column containing the alert details view and statistics -->
+  <div class="right-col">
+
+    <!-- Empty state message displayed when no alert is selected -->
+    <div class="detail-panel" id="alert-detail-empty" style="display: flex; align-items: center; justify-content: center; min-height: 400px; color: var(--text-muted);">
+      Select an alert to view details
+    </div>
+
+    <!-- Detailed view of a selected incident alert -->
+    <div class="detail-panel" id="alert-detail-panel" style="display: none;">
+      <!-- Priority badge indicating category and urgency -->
+      <div class="detail-priority-badge" id="alert-detail-priority">Accident_High_Priority</div>
+
+      <!-- Reference ID for the incident -->
+      <div class="detail-ref" id="alert-detail-ref">Incident_Log_AX-9942</div>
+      <!-- Primary headline/title of the incident -->
+      <div class="detail-headline" id="alert-detail-title">Multiple Vehicle Pileup I-95N</div>
+      <!-- Geospatial coordinates of the incident -->
+      <div class="detail-coords">
+        <!-- Location pin icon -->
+        <span class="material-symbols-outlined" style="font-size:14px;">location_on</span>
+        <!-- Lat/Lng coordinate text -->
+        <span id="alert-detail-coords">40.7128° N, 74.0060° W</span>
+      </div>
+
+      <!-- Static map visualization of the incident area -->
+      <div class="detail-map">
+        <img alt="Incident Map View" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_Yuy26NJi9BAEMO3YjgJkVrrQQPEWDYIzu9DMyckWuDyemkckqrs2jfkx2NSZhVRTwi5_k5yb2WcjaM-wmHTYpIMJ0H5cKoUOX-6y5H5Xch_7fT-mefBV95csf_y_X5I6BDKF-OhrSdlh7KDOENiXhNy3Ag4vD3OzntBL8xErPpTwGFN2lYKkKByXW_FSpZew5zQA8MDudiXs5kCc-ntobFEPuvzO55ArpdX7qsZaj5g9Y5tsqCRiA_omhZAclFWZptox_Cdqh2c"/>
+      </div>
+
+      <!-- Detailed text description of the incident -->
+      <div class="detail-body" id="alert-detail-desc">
+        Visual confirmation from drone unit DR-22. A white sedan and a heavy logistics vehicle collided near the median, causing a chain reaction. Emergency responders arrived at 14:19. Traffic is being diverted to secondary frontage roads.
+      </div>
+
+      <!-- Key metadata grid for the selected incident -->
+      <div class="detail-meta-grid">
+        <!-- Time detection metadata row -->
+        <div class="detail-meta-row">
+          <span class="detail-meta-key">Detected</span>
+          <span class="detail-meta-val" id="alert-detail-time">14:12:05 UTC</span>
+        </div>
+        <!-- Proximity metadata row -->
+        <div class="detail-meta-row">
+          <span class="detail-meta-key">Distance</span>
+          <span class="detail-meta-val" id="alert-detail-dist">1.2 km away</span>
+        </div>
+        <!-- Severity status metadata row -->
+        <div class="detail-meta-row">
+          <span class="detail-meta-key">Severity</span>
+          <span class="detail-meta-val accent-orange" id="alert-detail-severity">High</span>
+        </div>
+      </div>
+
+      <!-- Button to close the detail panel and return to the empty state -->
+      <button class="mark-read-btn" id="alert-detail-close-btn" style="background: var(--surface-3); color: var(--text);">
+        <!-- Close icon -->
+        <span class="material-symbols-outlined" style="font-size:16px;font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">close</span>
+        Close Panel
+      </button>
+    </div>
+
+    <!-- Statistics panel summarizing today's events -->
+    <div class="stats-panel">
+      <!-- Header for the statistics panel -->
+      <div class="stats-panel-title">Alert Stats Today</div>
+
+      <!-- Grid containing counts for different incident types -->
+      <div class="stats-grid">
+        <!-- Accident total cell -->
+        <div class="stat-cell border-accident">
+          <span class="stat-num num-accident" id="stat-accident">00</span>
+          <span class="stat-label">Accidents</span>
+        </div>
+        <!-- Congestion total cell -->
+        <div class="stat-cell border-congestion">
+          <span class="stat-num num-congestion" id="stat-congestion">00</span>
+          <span class="stat-label">Congestions</span>
+        </div>
+        <!-- Route update total cell -->
+        <div class="stat-cell border-route">
+          <span class="stat-num num-route" id="stat-route">00</span>
+          <span class="stat-label">Route Updates</span>
+        </div>
+        <!-- System event total cell -->
+        <div class="stat-cell border-system">
+          <span class="stat-num num-system" id="stat-system">00</span>
+          <span class="stat-label">System Events</span>
+        </div>
+      </div>
+
+      <!-- Footer for the stats panel indicating system health -->
+      <div class="integrity-row">
+        <!-- Verified status icon -->
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">verified</span>
+        <!-- System integrity text -->
+        <span class="integrity-text">System_Integrity // 99.98%</span>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Sticky bottom navigation for mobile viewports -->
+<nav class="mobile-nav">
+  <!-- Home navigation button -->
+  <button class="mob-btn">
+    <span class="material-symbols-outlined">home</span>
+    <span>Home</span>
+  </button>
+  <!-- Reports navigation button -->
+  <button class="mob-btn">
+    <span class="material-symbols-outlined">analytics</span>
+    <span>Reports</span>
+  </button>
+  <!-- Alerts navigation button (currently active) -->
+  <button class="mob-btn active">
+    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">notifications</span>
+    <span>Alerts</span>
+  </button>
+  <!-- Profile navigation button -->
+  <button class="mob-btn">
+    <span class="material-symbols-outlined">account_circle</span>
+    <span>Profile</span>
+  </button>
+</nav>
+
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- User alerts specific functionality script -->
+<script src="../../js/user/user_alerts.js"></script>
+
+</body>
+</html>
+

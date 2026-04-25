@@ -1,0 +1,243 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+<!-- Character encoding for the document -->
+<meta charset="utf-8"/>
+<!-- Responsive viewport settings -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Page title -->
+<title>NexusTraffic | Profile</title>
+
+<!-- Tailwind CSS for utility-first styling -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- External typography fonts from Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Barlow:wght@700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Material Symbols for icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet"/>
+
+<!-- Link to external field unit profile CSS -->
+<link href="../../css/field_unit/profile.css" rel="stylesheet"/>
+</head>
+
+<!-- Body section -->
+<body>
+
+<!-- Global desktop navigation bar for field units -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Left side of the navbar containing brand identity -->
+  <div class="flex items-center gap-4">
+    <!-- Brand identity block -->
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Desktop navigation links -->
+  <div class="hidden md:flex items-center gap-8">
+    <!-- Link to the active mission dashboard -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_desktop.html">My Mission</a>
+    <!-- Link to the historical incidents feed -->
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)" 
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="field_incidents.html">Incidents</a>
+    <!-- Link to the field unit's profile (currently active) -->
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="field_profile.html">Profile</a>
+  </div>
+
+  <!-- Right side of the navbar containing utility buttons -->
+  <div class="flex items-center gap-4">
+    <!-- Notifications toggle button -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)">
+      <!-- Notifications icon -->
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+    
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="w-10 h-10 flex items-center justify-center rounded-xl border transition-colors hover:bg-[var(--nt-card2)]" 
+            style="border-color: var(--nt-nav-border); background: var(--nt-nav-bg); color: var(--nt-dim)"
+            id="theme-toggle">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+
+    <!-- Field unit avatar image -->
+    <div class="user-avatar w-9 h-9 rounded-full border-2 overflow-hidden cursor-pointer transition-colors hover:border-[#F97316]" style="border-color: var(--nt-nav-border);">
+      <img alt="Agent Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFDM6pTeFxlPXDNCP11rNJcwNGIZ7fheo47MoL_3gA_jwPdVVXQUv_e97ubFwSoMXkqM3ErIgud_BJwhs7ej6uYPxtBk-PxeusH0i63bEg96_X_7bEZ1Tf9PBOxVI8NsIntYrHX6JyWwRzcecWOF6j6QfejlnFrrU8Std_fyYG5H6hJc8ASjL5TQMldWGQYcur88_aTQZ0tyoM3SGEFUWYyvc2jE68XFaq3KbcsZtxyQpQ7K3F37xIWecWo-Ktc9iwX95zp-dwiKY"/>
+    </div>
+  </div>
+</nav>
+
+<!-- Main content layout using a split column design -->
+<main class="main-layout">
+
+  <!-- Left column for agent identity and shift information -->
+  <section class="left-col">
+
+    <!-- Card displaying the agent's unique identity and primary performance stat -->
+    <div class="card identity-card">
+      <!-- Top section with ID and Name -->
+      <div class="identity-top">
+        <div>
+          <!-- Unique unit identification reference -->
+          <div class="identity-unit-id" id="profile-unit-id">UNIT_ID // --</div>
+          <!-- Agent's full legal name -->
+          <div class="identity-name nt-full-name" id="profile-full-name">--</div>
+        </div>
+        <!-- Circle container for user initials -->
+        <div class="identity-photo" id="profile-initials-circle">
+          <!-- Initials will be injected here via JS -->
+        </div>
+      </div>
+      <!-- Chip container for high-level statistics -->
+      <div class="stat-chips" style="grid-template-columns: 1fr;">
+        <!-- Card for the total number of cleared incidents -->
+        <div class="stat-chip" style="padding: 1.5rem;">
+          <span class="stat-chip-value" id="profile-cleared-count" style="color: var(--accent-fg); font-size: 2.5rem;">0</span>
+          <span class="stat-chip-label" style="font-size: 1rem;">Cleared</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container for current shift operational data -->
+    <div>
+      <!-- Section title -->
+      <div class="section-title">Shift Logistics</div>
+      <!-- Tabular layout for logistics data -->
+      <div class="shift-table">
+        <!-- Shift start timestamp -->
+        <div class="shift-row">
+          <span class="shift-row-label">Start Time</span>
+          <span class="shift-row-value">06:00 IST</span>
+        </div>
+        <!-- Designated operational zone -->
+        <div class="shift-row">
+          <span class="shift-row-label">Zone Assignment</span>
+          <span class="shift-row-value" id="profile-zone">--</span>
+        </div>
+        <!-- Primary response team designation -->
+        <div class="shift-row">
+          <span class="shift-row-label">Assigned Team</span>
+          <span class="shift-row-value" id="profile-team">--</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Right column for system settings and performance KPIs -->
+  <section class="right-col">
+
+    <!-- Container for notification and communication toggles -->
+    <div>
+      <!-- Section title -->
+      <div class="section-title">Command Notifications</div>
+      <!-- List of toggleable preferences -->
+      <div class="toggle-list">
+        <!-- Toggle for high-priority mission alerts -->
+        <div class="toggle-row">
+          <span class="toggle-row-label">Priority Incident Alerts</span>
+          <label class="toggle-switch" aria-label="Priority Incident Alerts">
+            <input type="checkbox" checked />
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+        <!-- Toggle for system performance and maintenance logs -->
+        <div class="toggle-row">
+          <span class="toggle-row-label">System Performance Updates</span>
+          <label class="toggle-switch" aria-label="System Performance Updates">
+            <input type="checkbox" checked />
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+        <!-- Toggle for real-time dispatch voice audio streams -->
+        <div class="toggle-row">
+          <span class="toggle-row-label">Dispatch Voice Comms</span>
+          <label class="toggle-switch" aria-label="Dispatch Voice Comms">
+            <input type="checkbox" />
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual visualization for response time performance -->
+    <div>
+      <!-- Section title -->
+      <div class="section-title">Weekly Response KPI</div>
+      <!-- Bar chart container -->
+      <div class="bar-chart" id="profile-weekly-chart">
+        <!-- Bars will be injected here via JS -->
+      </div>
+    </div>
+
+    <!-- Container for destructive session actions -->
+    <div class="danger-zone">
+      <div>
+        <!-- Danger zone header -->
+        <div class="danger-zone-title">Protocol Termination</div>
+        <!-- Risk assessment warning -->
+        <div class="danger-zone-sub">Warning: Terminating session will log out all active monitoring modules.</div>
+      </div>
+      <!-- Action buttons -->
+      <div class="danger-actions">
+        <!-- Ghost button for ending the shift without immediate sign-out -->
+        <button class="btn btn-ghost-danger">End Shift</button>
+        <!-- Primary button for full session termination -->
+        <button class="btn btn-danger">Sign Out</button>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<!-- Global system status footer -->
+<footer class="footer-bar">
+  <!-- Left side of the footer for telemetry and identification -->
+  <div class="footer-left">
+    <!-- Unique unit identification -->
+    <div class="footer-item">
+      <span class="footer-label">Unit:</span>
+      <span class="footer-value purple">882-KILO</span>
+    </div>
+    <!-- Encryption protocol status -->
+    <div class="footer-item">
+      <span class="footer-label">Encryption:</span>
+      <span class="footer-value accent">AES-512_ACTIVE</span>
+    </div>
+    <!-- Live GPS coordinate display -->
+    <div class="footer-item">
+      <span class="footer-label">GPS:</span>
+      <span class="footer-value purple">40.7128° N, 74.0060° W</span>
+    </div>
+  </div>
+  <!-- Right side of the footer for global system health -->
+  <div class="footer-right">
+    <!-- Operational status indicator -->
+    <div class="footer-status">
+      <!-- Status dot -->
+      <span class="footer-status-dot"></span>
+      SYSTEM_STATUS // NOMINAL
+    </div>
+    <!-- Vertical separator -->
+    <span class="sep">|</span>
+    <!-- System reliability/uptime metric -->
+    <span class="footer-label">Uptime: 99.9%</span>
+  </div>
+</footer>
+
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- Field unit profile specific functionality script -->
+<script src="../../js/field_unit/field_profile.js"></script>
+
+</body>
+</html>
+

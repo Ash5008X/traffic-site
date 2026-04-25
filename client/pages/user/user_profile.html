@@ -1,0 +1,252 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language and theme attributes -->
+<html lang="en" data-theme="dark">
+<!-- Head section containing metadata and external resources -->
+<head>
+  <!-- Character encoding for the document -->
+  <meta charset="UTF-8" />
+  <!-- Responsive viewport settings -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Page title -->
+  <title>NexusTraffic | Profile</title>
+
+  <!-- External typography fonts from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Material Symbols for icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0&display=swap" rel="stylesheet" />
+
+  <!-- Link to external user profile CSS -->
+  <link rel="stylesheet" href="../../css/user/profile.css" />
+</head>
+
+<!-- Body section with bottom padding for mobile navigation space -->
+<body class="pb-20">
+
+<!-- Global desktop navigation bar -->
+<header class="navbar">
+  <!-- Left side of the navbar containing brand and links -->
+  <div class="navbar-left">
+    <!-- Brand identity block -->
+    <a href="#" class="brand">
+      <!-- Brand icon container -->
+      <div class="brand-mark">
+        <!-- Traffic icon -->
+        <span class="material-symbols-outlined">traffic</span>
+      </div>
+      <!-- Brand name text -->
+      <span class="brand-name">NexusTraffic</span>
+    </a>
+
+    <!-- Desktop navigation list -->
+    <nav>
+      <ul class="nav-links">
+        <!-- Link to the home page -->
+        <li><a href="#" class="nav-link">Home</a></li>
+        <!-- Link to the user's reports history -->
+        <li><a href="#" class="nav-link">My Reports</a></li>
+        <!-- Link to the alerts page -->
+        <li><a href="#" class="nav-link">Alerts</a></li>
+        <!-- Link to the user's profile (currently active) -->
+        <li><a href="#" class="nav-link active">Profile</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Right side of the navbar containing search and utility tools -->
+  <div class="navbar-right">
+    <!-- Search bar wrapper -->
+    <div class="search-wrap">
+      <!-- Search icon -->
+      <span class="material-symbols-outlined search-icon-el">search</span>
+      <!-- Search input field -->
+      <input class="search-input" type="text" placeholder="Search settings…" />
+    </div>
+
+    <!-- Notifications toggle button -->
+    <button class="icon-btn" title="Notifications">
+      <!-- Notifications icon -->
+      <span class="material-symbols-outlined">notifications</span>
+      <!-- Unread indicator dot -->
+      <span class="notif-dot"></span>
+    </button>
+
+    <!-- Vertical separator line -->
+    <div class="divider-v"></div>
+
+    <!-- Theme toggle button (Light/Dark mode) -->
+    <button class="theme-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle light/dark mode">
+      <!-- Theme icon -->
+      <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+    </button>
+
+    <!-- User avatar image -->
+    <div class="user-avatar" title="My Profile">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZiBRP_CvTVIZdYcSMWQBJtFYMoQ-t7OFLW48ZG2u98c9NXXJ-T7Zh-V9SMc_3qD7NS0usc3oHhZyRTWailotbnOUEwjQFRfootUU7nqQWrkAK82q-AvTaqL0746OHmmVmS4rPo3ayKkHA_NU7scpY-tDxAXlUyePtthYD7edYQsLQOAafzx-OGZ_svqG1Vi6GGFu0l-jZPlVp2NFIQcVFEJJ0vNW9Ydf5g77biUjQxmwa8c3OGt1WaFSVQh8aszwNgSdd5kJXZAc"
+        alt="User avatar"
+      />
+    </div>
+  </div>
+</header>
+
+<!-- Main content layout using a split column design -->
+<main class="profile-layout">
+
+  <!-- Left column for user identity and primary stats -->
+  <div class="left-col">
+
+    <!-- Card for displaying basic user information and avatar -->
+    <div class="card identity-card">
+      <!-- Large user avatar placeholder -->
+      <div class="avatar-large" id="profile-avatar">--</div>
+      <!-- User's full name -->
+      <h1 class="user-name" id="profile-name">Loading...</h1>
+      <!-- User's unique identifier tag -->
+      <p class="user-id" id="profile-id">USER_ID // NX-0000</p>
+      <!-- Row showing user's current or home location -->
+      <div class="user-location">
+        <!-- Location pin icon -->
+        <span class="material-symbols-outlined">location_on</span>
+        <!-- Location text -->
+        <span>Metropolitan District, Sector 7</span>
+      </div>
+      <!-- Badge showing user's account status -->
+      <div class="status-badge">Active User</div>
+    </div>
+
+    <!-- Grid containing user activity statistics -->
+    <div class="stats-grid">
+      <!-- Card for the total number of reports filed -->
+      <div class="card stat-card">
+        <span class="stat-label">Reports Filed</span>
+        <span class="stat-value" id="stat-reports-filed">--</span>
+      </div>
+      <!-- Card for the total number of incidents resolved through user reports -->
+      <div class="card stat-card">
+        <span class="stat-label">Incidents Resolved</span>
+        <span class="stat-value" id="stat-incidents-resolved">--</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right column for application settings and account management -->
+  <div class="right-col">
+
+    <!-- Section for notification configuration -->
+    <div class="settings-section">
+      <!-- Section header with icon -->
+      <h3 class="settings-title">
+        <span class="material-symbols-outlined">notifications_active</span>
+        Notifications
+      </h3>
+      <!-- Card containing a list of toggleable notification settings -->
+      <div class="card settings-list">
+        <!-- Toggle for push notifications -->
+        <div class="settings-item">
+          <span class="settings-label">Push Alerts</span>
+          <div class="toggle-switch active" data-setting="push-alerts"></div>
+        </div>
+        <!-- Toggle for SMS notifications -->
+        <div class="settings-item">
+          <span class="settings-label">SMS Gateway</span>
+          <div class="toggle-switch" data-setting="sms-gateway"></div>
+        </div>
+        <!-- Toggle for email digests -->
+        <div class="settings-item">
+          <span class="settings-label">Email Digest</span>
+          <div class="toggle-switch active" data-setting="email-digest"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section for categorizing alert preferences -->
+    <div class="settings-section">
+      <!-- Section header with icon -->
+      <h3 class="settings-title">
+        <span class="material-symbols-outlined">tune</span>
+        Alert Preferences
+      </h3>
+      <!-- Card containing toggles for different alert types -->
+      <div class="card settings-list">
+        <!-- Preference for accident reports -->
+        <div class="settings-item">
+          <span class="settings-label">Accident Reports</span>
+          <div class="toggle-switch active" data-setting="accident-reports"></div>
+        </div>
+        <!-- Preference for traffic congestion warnings -->
+        <div class="settings-item">
+          <span class="settings-label">Congestion Warning</span>
+          <div class="toggle-switch active" data-setting="congestion-warning"></div>
+        </div>
+        <!-- Preference for route deviation notifications -->
+        <div class="settings-item">
+          <span class="settings-label">Route Deviations</span>
+          <div class="toggle-switch" data-setting="route-deviations"></div>
+        </div>
+        <!-- Preference for system maintenance updates -->
+        <div class="settings-item">
+          <span class="settings-label">System Maintenance</span>
+          <div class="toggle-switch active" data-setting="system-maintenance"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section for account management links -->
+    <div class="settings-section">
+      <!-- Section header with icon -->
+      <h3 class="settings-title">
+        <span class="material-symbols-outlined">manage_accounts</span>
+        Account
+      </h3>
+      <!-- Card containing navigable account links -->
+      <div class="card settings-list">
+        <!-- Navigates to edit profile details -->
+        <a href="#" class="settings-link">
+          <span class="settings-label">Edit Profile</span>
+          <span class="material-symbols-outlined link-arrow">chevron_right</span>
+        </a>
+        <!-- Navigates to change password workflow -->
+        <a href="#" class="settings-link">
+          <span class="settings-label">Change Password</span>
+          <span class="material-symbols-outlined link-arrow">chevron_right</span>
+        </a>
+        <!-- Navigates to privacy settings -->
+        <a href="#" class="settings-link">
+          <span class="settings-label">Privacy & Security</span>
+          <span class="material-symbols-outlined link-arrow">chevron_right</span>
+        </a>
+        <!-- Navigates to the support portal -->
+        <a href="#" class="settings-link">
+          <span class="settings-label">Help Center</span>
+          <span class="material-symbols-outlined link-arrow">chevron_right</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Container for high-risk destructive actions -->
+    <div class="danger-zone">
+      <!-- Section header for critical actions -->
+      <h4 class="danger-title">Critical System Actions</h4>
+      <!-- Button to sign out of the current session -->
+      <button class="btn-danger">Sign Out of Session</button>
+      <!-- Link to initiate account deletion process -->
+      <div class="delete-link">
+        <a href="#">Permanently Delete Account</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Core application logic script -->
+<script src="../../js/app.js"></script>
+<!-- Global theme management script -->
+<script src="../../js/theme.js"></script>
+<!-- User profile specific functionality script -->
+<script src="../../js/user/user_profile.js"></script>
+
+</body>
+</html>
+

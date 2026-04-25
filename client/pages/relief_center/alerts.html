@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NexusTraffic | Alerts</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<!-- NexusTraffic type stack: Bricolage Grotesque + Figtree + JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Keep original fonts for existing Tailwind classes -->
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Outfit:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+
+<link rel="stylesheet" href="../../css/relief_center/alerts.css">
+
+</head>
+
+<body class="font-body selection:bg-primary-container/30 overflow-hidden h-screen flex flex-col">
+
+<!-- ════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+     ════════════════════════════════════════════════ -->
+
+
+<!-- ════════════════════════════════════════════════
+     MAIN CONTENT GRID
+     ════════════════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════════════════
+     TOP NAV BAR
+     ════════════════════════════════════════════════ -->
+<!-- ════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+     Orchestrates global module switching and mission-critical time synchronization.
+     ════════════════════════════════════════════════ -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Branding & Mission Identity -->
+  <div class="flex items-center gap-4">
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Command Navigation: Global module orchestration -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="relief_dashbaord.html">Dashboard</a>
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="active_incident.html">Active Incidents</a>
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" href="alerts.html">Alerts</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="reports.html">Reports</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="teams.html">Teams</a>
+  </div>
+
+  <!-- Global Meta & System Telemetry -->
+  <div class="flex items-center gap-4">
+    <!-- Synced Operational Clock (UTC) -->
+    <div class="fira-code text-sm hidden lg:block" style="color: var(--nt-dim)" id="clock">14:32:08 UTC</div>
+
+    <!-- System-wide tactical notifications -->
+    <button class="icon-btn relative group" title="Notifications" id="relief-notif-btn">
+      <span class="material-symbols-outlined" style="color: var(--nt-dim)">notifications</span>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#F97316] rounded-full border-2 border-[#141417] hidden notif-dot"></span>
+    </button>
+    
+    <!-- Administrator Identity Registry -->
+    <div class="relative group flex items-center gap-2 cursor-pointer nt-user-profile">
+      <span class="outfit text-sm font-semibold nt-user-name" style="color: var(--nt-bright)">Admin</span>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center border overflow-hidden user-avatar" style="border-color: var(--nt-card-border)">
+        <span class="material-symbols-outlined text-[var(--nt-dim)]">account_circle</span>
+      </div>
+      
+      <!-- Secure Session Termination -->
+      <div class="absolute right-0 top-full mt-2 w-48 nt-card border border-[var(--nt-card-border)] rounded shadow-[0_4px_20px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="flex flex-col py-1">
+          <button class="px-4 py-2 text-left outfit text-sm text-[var(--nt-dim)] hover:bg-[#1F3448]/30 hover:text-[#F97316] transition-colors flex items-center gap-3 w-full">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI/UX Accessibility Toggles -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle light / dark">
+      <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     MAIN BROADCAST INTERFACE
+     A three-column grid for creation, monitoring, and analysis of network-wide alerts.
+     ════════════════════════════════════════════════ -->
+<main class="flex-1 flex overflow-hidden grid grid-cols-12 gap-0 w-full">
+
+  <!-- ─── COLUMN 1: Broadcast Command Center ───
+       Dedicated interface for composing and dispatching critical network transmissions.
+       Features category selection, spatial scoping, and priority weighting. -->
+  <aside class="col-span-3 border-r flex flex-col p-6 overflow-y-auto custom-scrollbar">
+    <header class="mb-6">
+      <h1 class="font-headline text-2xl font-bold tracking-tighter uppercase" style="color: var(--nt-bright)">COMPOSE BROADCAST</h1>
+    </header>
+
+    <!-- Tactical Composer: High-priority configuration suite -->
+    <section class="compose-section border-t-4 border-[#FF3B30] p-5 rounded-sm shadow-xl flex flex-col gap-6">
+      <!-- Protocol Identification -->
+      <div>
+        <label class="block font-body text-xs font-semibold mb-3 uppercase tracking-wider" style="color: var(--nt-dim)">SELECT ALERT TYPE</label>
+        <div class="grid grid-cols-2 gap-2" id="alert-types">
+          <button data-type="accident" class="alert-type-btn border border-transparent hover:bg-[#FF6B35]/20 hover:border-[#FF6B35] transition-all p-3 flex flex-col items-center gap-2 rounded-sm active-type" style="background: rgba(255, 107, 53, 0.2); border-color: #FF6B35;">
+            <span class="material-symbols-outlined text-[#FF6B35]">emergency</span>
+            <span class="btn-label font-label text-[9px]">🚨 ACCIDENT</span>
+          </button>
+          <button data-type="congestion" class="alert-type-btn border border-transparent hover:bg-[#FFB830]/20 hover:border-[#FFB830] transition-all p-3 flex flex-col items-center gap-2 rounded-sm">
+            <span class="material-symbols-outlined text-[#FFB830]">traffic</span>
+            <span class="btn-label font-label text-[9px]">🚧 CONGESTION</span>
+          </button>
+          <button data-type="route_update" class="alert-type-btn border border-transparent hover:bg-[#3A86FF]/20 hover:border-[#3A86FF] transition-all p-3 flex flex-col items-center gap-2 rounded-sm">
+            <span class="material-symbols-outlined text-[#3A86FF]">alt_route</span>
+            <span class="btn-label font-label text-[9px]">🔄 ROUTE UPDATE</span>
+          </button>
+          <button data-type="system" class="alert-type-btn border border-transparent hover:bg-[#BF5AF2]/20 hover:border-[#BF5AF2] transition-all p-3 flex flex-col items-center gap-2 rounded-sm">
+            <span class="material-symbols-outlined text-[#BF5AF2]">memory</span>
+            <span class="btn-label font-label text-[9px]">⚙️ SYSTEM</span>
+          </button>
+          <button data-type="all_clear" class="alert-type-btn border border-transparent hover:bg-[#F97316]/20 hover:border-[#F97316] transition-all p-3 flex flex-col items-center gap-2 rounded-sm">
+            <span class="material-symbols-outlined text-[#F97316]">check_circle</span>
+            <span class="btn-label font-label text-[9px]">✅ ALL CLEAR</span>
+          </button>
+          <button data-type="hazard" class="alert-type-btn border border-transparent hover:bg-[#FF3B30]/20 hover:border-[#FF3B30] transition-all p-3 flex flex-col items-center gap-2 rounded-sm">
+            <span class="material-symbols-outlined text-[#FF3B30]">warning</span>
+            <span class="btn-label font-label text-[9px]">⚠️ HAZARD</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Spatial Scoping: Targeted zone broadcast configuration -->
+      <div>
+        <label class="block font-body text-xs font-semibold mb-3 uppercase tracking-wider" style="color: var(--nt-dim)">AFFECTED ZONE</label>
+        <div class="flex flex-wrap gap-2" id="affected-zones">
+          <button data-zone="ZONE_A" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px] active-zone">ZONE_A</button>
+          <button data-zone="ZONE_B" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px]">ZONE_B</button>
+          <button data-zone="ZONE_C" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px]">ZONE_C</button>
+          <button data-zone="ZONE_D" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px]">ZONE_D</button>
+          <button data-zone="ZONE_E" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px]">ZONE_E</button>
+          <button data-zone="ZONE_F" class="zone-btn px-3 py-1 rounded-sm font-label text-[10px]">ZONE_F</button>
+        </div>
+      </div>
+
+      <!-- Tactical Urgency Matrix -->
+      <div>
+        <label class="block font-body text-xs font-semibold mb-3 uppercase tracking-wider" style="color: var(--nt-dim)">SEVERITY LEVEL</label>
+        <div class="grid grid-cols-4 gap-1" id="severity-levels">
+          <button data-sev="low" class="sev-btn py-2 text-[9px] font-headline font-bold rounded-sm">LOW</button>
+          <button data-sev="medium" class="sev-btn py-2 text-[9px] font-headline font-bold rounded-sm">MEDIUM</button>
+          <button data-sev="high" class="sev-btn py-2 text-[9px] font-headline font-bold rounded-sm">HIGH</button>
+          <button data-sev="critical" class="sev-btn py-2 text-[9px] font-headline font-bold rounded-sm active-sev">CRITICAL</button>
+        </div>
+      </div>
+
+      <!-- SitRep Formulation -->
+      <div class="flex flex-col gap-2">
+        <label class="block font-body text-xs font-semibold uppercase tracking-wider" style="color: var(--nt-dim)">TRANSMISSION CONTENT</label>
+        <textarea id="broadcast-msg" class="w-full border-none focus:ring-1 focus:ring-primary-container text-sm font-body p-3 rounded-sm text-black" placeholder="Enter broadcast message details..." rows="4"></textarea>
+      </div>
+
+      <!-- Primary Action: Synchronous network-wide dispatch -->
+      <button id="btn-broadcast" class="w-full bg-[#FF3B30] hover:bg-[#D32F2F] active:scale-[0.98] transition-all py-4 font-headline font-extrabold text-white tracking-widest text-lg shadow-lg shadow-red-900/20 rounded-sm">
+        BROADCAST NOW
+      </button>
+    </section>
+  </aside>
+
+  <!-- ─── COLUMN 2: Network Transmission Monitoring ───
+       Real-time chronological feed of active and legacy broadcasts.
+       Provides immediate situational awareness of current network signals. -->
+  <section class="center-col col-span-6 p-6 overflow-y-auto custom-scrollbar">
+    <!-- Active Broadcast Pipeline -->
+    <header class="mb-6 flex justify-between items-end header-border pb-4" style="border-bottom: 1px solid color-mix(in srgb, var(--nt-card-border) 40%, transparent)">
+      <div>
+        <h2 class="font-headline text-2xl font-bold tracking-tighter uppercase" style="color: var(--nt-bright)">LIVE TRANSMISSIONS</h2>
+        <p class="font-label text-[10px] tracking-[0.2em] mt-1" style="color: var(--nt-dim)">REAL-TIME NETWORK BROADCASTS</p>
+      </div>
+      <!-- Tactical state indicator -->
+      <div class="flex items-center gap-2 bg-[#FF3B30]/10 px-3 py-1 rounded-full border border-[#FF3B30]/30">
+        <div class="w-2 h-2 bg-[#FF3B30] rounded-full animate-pulse"></div>
+        <span class="font-headline font-bold text-[#FF3B30] text-xs tracking-widest">LIVE</span>
+      </div>
+    </header>
+
+    <!-- Live alert registry -->
+    <div class="space-y-6" id="live-transmissions-container">
+      <div class="text-center py-12" style="color:var(--nt-dim)">
+        <span class="material-symbols-outlined text-4xl block mb-2" style="color:var(--nt-dim)">sync</span>
+        <p class="outfit text-xs">Loading live transmissions…</p>
+      </div>
+    </div>
+
+    <!-- Mission Archive: Immutable legacy alerts -->
+    <header class="mt-12 mb-6 flex justify-between items-end header-border pb-4" style="border-bottom: 1px solid color-mix(in srgb, var(--nt-card-border) 40%, transparent)">
+      <div>
+        <h2 class="font-headline text-2xl font-bold tracking-tighter uppercase" style="color: var(--nt-dim)">ENDED TRANSMISSIONS</h2>
+        <p class="font-label text-[10px] tracking-[0.2em] mt-1" style="color: var(--nt-dim)">PAST NETWORK BROADCASTS</p>
+      </div>
+    </header>
+
+    <div class="space-y-6" id="ended-transmissions-container">
+      <!-- Legacy alerts dynamically populated -->
+    </div>
+  </section>
+
+  <!-- ─── COLUMN 3: Intelligence & Reach Analytics ───
+       Visualizes network impact, user engagement, and spatial alert density
+       over the rolling 24-hour mission window. -->
+  <aside class="col-span-3 border-l p-6 flex flex-col gap-8 overflow-y-auto custom-scrollbar">
+    <header>
+      <h2 class="font-headline text-2xl font-bold tracking-tighter uppercase" style="color: var(--nt-bright)">BROADCAST ANALYTICS</h2>
+      <p class="font-label text-[10px] tracking-widest uppercase mt-1" style="color: var(--nt-dim)">WINDOW: LAST 24 HOURS</p>
+    </header>
+
+    <!-- Primary Performance Indicators -->
+    <div class="flex flex-col gap-4">
+      <!-- Volume metrics -->
+      <div class="stat-card p-5 border-l-2 border-[#F97316] flex flex-col">
+        <span class="font-label text-[10px] tracking-widest uppercase" style="color: var(--nt-dim)">TOTAL BROADCASTS</span>
+        <span class="font-headline text-5xl font-extrabold text-[#F97316] tracking-tighter" id="total-broadcasts">—</span>
+      </div>
+      <!-- User impact telemetry -->
+      <div class="stat-card p-5 border-l-2 border-[#34C759] flex flex-col">
+        <span class="font-label text-[10px] tracking-widest uppercase" style="color: var(--nt-dim)">USERS REACHED</span>
+        <span class="font-headline text-5xl font-extrabold text-[#34C759] tracking-tighter" id="users-reached">—</span>
+      </div>
+      <!-- Network response efficiency -->
+      <div class="stat-card p-5 border-l-2 border-[#FFB830] flex flex-col">
+        <span class="font-label text-[10px] tracking-widest uppercase" style="color: var(--nt-dim)">AVG RESPONSE RATE</span>
+        <span class="font-headline text-5xl font-extrabold text-[#FFB830] tracking-tighter" id="avg-response-rate">—</span>
+      </div>
+    </div>
+
+    <!-- Spatial Density intelligence -->
+    <section>
+      <h3 class="font-headline text-sm font-bold tracking-widest uppercase mb-4" style="color: var(--nt-dim)">ALERTS BY ZONE</h3>
+      <div class="space-y-4" id="alerts-by-zone-container">
+        <!-- Comparative zone analytics bar charts -->
+      </div>
+    </section>
+  </aside>
+
+</main>
+
+<!-- ════════════════════════════════════════════════
+     SYSTEM FOOTER: Network Protocol Telemetry
+     Provides continuous validation of broadcast encryption and spatial health.
+     ════════════════════════════════════════════════ -->
+<footer class="fixed bottom-0 left-0 w-full z-50 h-8 border-t flex justify-between items-center px-6">
+  <!-- Protocol Verification -->
+  <div class="flex items-center gap-6">
+    <div class="font-label text-[9px] tracking-widest flex items-center gap-2" style="color: var(--nt-dim)">
+      <span class="material-symbols-outlined text-[10px] text-[#34C759]">hub</span>
+      BROADCAST_SYSTEM: <span style="color: var(--nt-bright)">ACTIVE</span>
+    </div>
+    <div class="font-label text-[9px] tracking-widest flex items-center gap-2" style="color: var(--nt-dim)">
+      <span class="material-symbols-outlined text-[10px]">lock</span>
+      ENCRYPTION: <span style="color: var(--nt-bright)">AES-256-ACTIVE</span>
+    </div>
+    <div class="font-label text-[9px] tracking-widest flex items-center gap-2" style="color: var(--nt-dim)">
+      <span class="material-symbols-outlined text-[10px]">map</span>
+      ZONES_COVERED: <span style="color: var(--nt-bright)">06</span>
+    </div>
+  </div>
+  <!-- Node Telemetry & Latency Metrics -->
+  <div class="font-label text-[9px] tracking-widest italic" style="color: var(--nt-dim)">
+    LAT: 12.9716° N // LNG: 77.5946° E // SYSTEM_STABILITY: EQUILIBRIUM // LATENCY: 14MS
+  </div>
+</footer>
+
+
+
+<script src="../../js/app.js"></script>
+<script src="../../js/theme.js"></script>
+<script src="../../js/relief_center/alerts.js"></script>
+
+</body>
+</html>

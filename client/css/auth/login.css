@@ -1,0 +1,314 @@
+/* Global background color override */
+html, body {
+  background-color: var(--bg) !important;
+}
+
+/* Root variable definitions for the design system */
+:root {
+  --bg: #000000;
+  --surface: #141417;
+  --surface-2: #1C1C21;
+  --surface-3: #242429;
+
+  --border: #28282F;
+  --border-subtle: #1E1E24;
+
+  --text-primary: #F2F2F5;
+  --text-secondary: #9999AB;
+  --text-muted: #55556A;
+
+  --accent-subtle: rgba(249, 115, 22, 0.09);
+  --accent-border: rgba(249, 115, 22, 0.22);
+  --accent-fg: #FB923C;
+
+  --critical-subtle: rgba(239, 68, 68, 0.09);
+  --critical-border: rgba(239, 68, 68, 0.22);
+  --critical-fg: #F87171;
+
+  --warning-subtle: rgba(245, 158, 11, 0.09);
+  --warning-border: rgba(245, 158, 11, 0.22);
+  --warning-fg: #FCD34D;
+
+  --info-subtle: rgba(99, 102, 241, 0.09);
+  --info-border: rgba(99, 102, 241, 0.22);
+  --info-fg: #818CF8;
+
+  --success-subtle: rgba(16, 185, 129, 0.09);
+  --success-border: rgba(16, 185, 129, 0.22);
+  --success-fg: #34D399;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+  --focus-ring: 0 0 0 3px rgba(249, 115, 22, 0.15), 0 0 0 1px rgba(249, 115, 22, 0.3);
+
+  --field-bg: #0b1d32;
+  --field-border: #1f4267;
+  --txt-main: #f2f8ff;
+  --txt-label: #ccd9ec;
+  --teal: #63d4cc;
+}
+
+/* Reset box-sizing to border-box for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Base styles for html and body */
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+/* Typography and background for the body */
+body {
+  background: var(--bg);
+  color: var(--txt-main);
+  font-family: "Figtree", sans-serif;
+}
+
+/* Shell container that centers the auth content */
+.auth-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px 20px;
+}
+
+/* Restricted width card for the login/register content */
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+}
+
+/* Branding block containing logo and titles */
+.brand-block {
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+/* Main icon used in the branding */
+.brand-icon {
+  font-size: 44px;
+  line-height: 1;
+  color: #edf5ff;
+  margin-bottom: 8px;
+}
+
+/* Main title styling for the brand */
+.brand-block h1 {
+  margin: 0;
+  color: var(--teal);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.2px;
+}
+
+/* Description text styling under the brand title */
+.brand-block p {
+  margin: 8px 0 0;
+  color: #6f8bac;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+/* Layout for the authentication form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Container for input fields and labels */
+.field-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Label styling for form fields */
+.field-wrap label {
+  color: var(--txt-label);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  line-height: 1;
+}
+
+/* Base styling for all input elements */
+input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid var(--field-border);
+  border-radius: 6px;
+  background: var(--field-bg);
+  color: var(--txt-main);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0 14px;
+  outline: none;
+}
+
+/* Placeholder text color for inputs */
+input::placeholder {
+  color: #6f88a8;
+}
+
+/* Input focus state styling */
+input:focus {
+  border-color: #2f5c88;
+}
+
+/* Wrapper for inputs that have an inline action button (like show/hide password) */
+.input-with-action {
+  position: relative;
+}
+
+/* Add padding to input when it contains an inline action */
+.input-with-action input {
+  padding-right: 100px;
+}
+
+/* Inline action button styling (e.g., visibility toggle) */
+.inline-action {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--teal);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Icon styling inside inline actions */
+.inline-action .material-symbols-outlined {
+  font-size: 15px;
+}
+
+/* Layout for auxiliary links and checkboxes in the form */
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1px;
+}
+
+/* Wrapper for 'Remember me' checkbox and text */
+.remember-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #a3b7d1;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Custom styling for the checkbox input */
+.remember-wrap input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--teal);
+}
+
+/* Styling for links within the meta-row */
+.meta-row a {
+  color: var(--teal);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* Primary action button styling */
+.primary-btn {
+  height: 52px;
+  border: 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #74cfc9 0%, #6cc7c2 100%);
+  color: #0a263f;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 800;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+/* Secondary copy for switching between login and register */
+.switch-copy {
+  margin: 8px 0 0;
+  text-align: center;
+  color: #6684a7;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Link styling inside switch copy */
+.switch-copy a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Responsive adjustments for mobile devices */
+@media (max-width: 768px) {
+  /* Reduce padding on mobile */
+  .auth-shell {
+    padding: 20px 12px;
+  }
+
+  /* Full width card on mobile */
+  .auth-card {
+    max-width: 100%;
+  }
+
+  /* Reduce spacing on mobile */
+  .brand-block {
+    margin-bottom: 18px;
+  }
+
+  /* Scale down brand icon size */
+  .brand-icon {
+    font-size: 36px;
+  }
+
+  /* Scale down brand title size */
+  .brand-block h1 {
+    font-size: 42px;
+  }
+
+  /* Scale down brand subtitle size */
+  .brand-block p {
+    font-size: 18px;
+  }
+
+  /* Scale down input size for mobile */
+  input {
+    height: 46px;
+    font-size: 15px;
+    padding: 0 12px;
+  }
+
+  /* Adjust padding for inline actions on mobile */
+  .input-with-action input {
+    padding-right: 88px;
+  }
+}
+

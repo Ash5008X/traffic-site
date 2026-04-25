@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="dark"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NexusTraffic | Teams</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Shared theme stack (matches nexustraffic-redesign.html / code.html) -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<link rel="stylesheet" href="../../css/relief_center/teams.css">
+
+</head>
+<body class="outfit bg-[var(--nt-body-bg)] flex flex-col h-screen overflow-hidden">
+
+<!-- ════════════════════════════════════════════════
+     TOP NAVIGATION BAR
+     Orchestrates global module switching and mission-critical time synchronization.
+     ════════════════════════════════════════════════ -->
+<nav class="h-16 flex items-center justify-between px-6 border-b" style="border-color: var(--nt-nav-border); background-color: var(--nt-nav-bg); position: sticky; top: 0; z-index: 50;">
+  <!-- Branding & Mission Identity -->
+  <div class="flex items-center gap-4">
+    <div class="nt-brand-logo">
+      <span style="color: var(--nt-bright)">NEXUS</span><span class="text-[#F97316]">TRAFFIC</span>
+    </div>
+  </div>
+
+  <!-- Command Navigation: Switches between operational modules -->
+  <div class="hidden md:flex items-center gap-8">
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="relief_dashbaord.html">Dashboard</a>
+    <a class="outfit font-medium transition-colors" style="color: var(--nt-dim)"
+       onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="active_incident.html">Active Incidents</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="alerts.html">Alerts</a>
+    <a class="outfit font-medium transition-colors" 
+       style="color: var(--nt-dim)" onmouseover="this.style.color='#F97316'" onmouseout="this.style.color=getComputedStyle(document.documentElement).getPropertyValue('--nt-dim').trim()"
+       href="reports.html">Reports</a>
+    <a class="outfit font-semibold text-[#F97316] border-b-2 border-[#F97316] pb-1" 
+       href="teams.html">Teams</a>
+  </div>
+
+  <!-- Global Meta & System Telemetry -->
+  <div class="flex items-center gap-4">
+    <!-- Synced Operational Clock (UTC) -->
+    <div class="fira-code text-sm hidden lg:block" style="color: var(--nt-dim)" id="clock">14:32:08 UTC</div>
+
+    <!-- System-wide tactical notifications -->
+    <button class="icon-btn relative group" title="Notifications" id="relief-notif-btn">
+      <span class="material-symbols-outlined" style="color: var(--nt-dim)">notifications</span>
+      <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#F97316] rounded-full border-2 border-[#141417] hidden notif-dot"></span>
+    </button>
+
+    <!-- Administrator Identity Registry -->
+    <div class="relative group flex items-center gap-2 cursor-pointer nt-user-profile">
+      <span class="outfit text-sm font-semibold nt-user-name" style="color: var(--nt-bright)">Admin</span>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center border overflow-hidden user-avatar" style="border-color: var(--nt-card-border)">
+        <span class="material-symbols-outlined text-[var(--nt-dim)]">account_circle</span>
+      </div>
+      
+      <!-- Secure Session Termination -->
+      <div class="absolute right-0 top-full mt-2 w-48 nt-card border border-[var(--nt-card-border)] rounded shadow-[0_4px_20px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+        <div class="flex flex-col py-1">
+          <button class="px-4 py-2 text-left outfit text-sm text-[var(--nt-dim)] hover:bg-[#1F3448]/30 hover:text-[#F97316] transition-colors flex items-center gap-3 w-full">
+            <span class="material-symbols-outlined text-sm">logout</span>
+            Sign Out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- UI/UX Accessibility Toggles -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="Toggle light / dark">
+      <span id="theme-icon" class="material-symbols-outlined">light_mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════
+     FIELD UNIT MANAGEMENT INTERFACE
+     A multi-column orchestration suite for personnel and asset allocation.
+     ════════════════════════════════════════════════ -->
+<main class="flex-1 flex w-full overflow-hidden">
+
+  <!-- ─── COLUMN 1: Unit Inventory & Activation ───
+       Displays aggregate personnel metrics and team formation controllers. -->
+  <aside class="w-1/4 h-full bg-[var(--nt-section-bg)] border-r border-[var(--nt-card-border)] flex flex-col">
+    <div class="flex-1 overflow-y-auto p-5 space-y-6">
+      <!-- High-Level Asset Metrics -->
+      <div class="grid grid-cols-1 gap-3">
+        <div class="nt-card p-4 rounded border border-[var(--nt-card-border)] flex flex-col justify-between h-[90px]">
+          <span class="outfit text-xs text-[var(--nt-dim)] font-semibold uppercase">TOTAL TEAMS</span>
+          <span id="stat-total-teams" class="barlow-800 text-4xl text-[var(--nt-bright)] font-black leading-none">—</span>
+        </div>
+        <div class="nt-card p-4 rounded border border-[var(--nt-card-border)] flex flex-col justify-between h-[90px]">
+          <span class="outfit text-xs text-[var(--nt-dim)] font-semibold uppercase">MEMBERS</span>
+          <span id="stat-members" class="barlow-800 text-4xl text-[var(--nt-bright)] font-black leading-none">—</span>
+        </div>
+        <div class="nt-card p-4 rounded border-l-4 border-l-alert-active flex flex-col justify-between h-[90px] border border-[var(--nt-card-border)]">
+          <span class="outfit text-xs text-[var(--nt-dim)] font-semibold uppercase">ON DUTY NOW</span>
+          <span id="stat-on-duty" class="barlow-800 text-4xl text-[#34C759] font-black leading-none">—</span>
+        </div>
+      </div>
+      <!-- Team Formation Console: Logical unit creation interface -->
+      <div class="nt-card rounded border border-[var(--nt-card-border)] overflow-hidden">
+        <div class="px-4 py-3 border-b border-[var(--nt-card-border)] flex justify-between items-center bg-[var(--nt-section-bg)]">
+          <h2 class="barlow-800 text-lg font-bold text-[var(--nt-bright)] uppercase tracking-tight">CREATE NEW TEAM</h2>
+          <span class="material-symbols-outlined text-[#F97316] cursor-pointer hover:scale-110 transition-transform">add</span>
+        </div>
+        <div class="p-4 space-y-5">
+          <div class="space-y-1">
+            <label class="outfit text-[10px] uppercase font-semibold text-[var(--nt-dim)]">TEAM NAME</label>
+            <input id="create-team-name" class="w-full bg-[var(--nt-body-bg)] border border-[var(--nt-card-border)] rounded px-3 py-2 text-sm fira-code text-[var(--nt-bright)] focus:outline-none focus:border-[#F97316] placeholder:text-[var(--nt-dim)]/60" placeholder="e.g. ALPHA_MED_01" type="text"/>
+          </div>
+          <div class="space-y-2">
+            <label class="outfit text-[10px] uppercase font-semibold text-[var(--nt-dim)]">SPECIALIZATION</label>
+            <div class="flex flex-wrap gap-2" id="create-spec-btns">
+              <button data-val="medical" class="spec-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#F97316] text-white">Medical</button>
+              <button data-val="traffic_control" class="spec-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Traffic Control</button>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="outfit text-[10px] uppercase font-semibold text-[var(--nt-dim)]">ASSIGNED ZONE</label>
+            <div class="flex flex-wrap gap-2" id="create-zone-btns">
+              <button data-val="A" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone A</button>
+              <button data-val="B" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone B</button>
+              <button data-val="C" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone C</button>
+              <button data-val="D" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone D</button>
+              <button data-val="E" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone E</button>
+              <button data-val="F" class="zone-btn px-3 py-1 rounded-full text-xs font-semibold bg-[#1F3448]/30 text-[var(--nt-dim)] border border-[var(--nt-card-border)] hover:text-[var(--nt-bright)]">Zone F</button>
+            </div>
+          </div>
+          <button id="btn-create-team" class="w-full mt-4 bg-[var(--nt-section-bg)] border border-[var(--nt-card-border)] text-[var(--nt-bright)] barlow-800 text-lg font-bold py-3 rounded uppercase tracking-wide hover:bg-[#F97316] hover:text-white hover:border-[#F97316] transition-all flex justify-center items-center gap-2">
+            <span>CREATE TEAM</span>
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <!-- ─── COLUMN 2: Personnel Registry & Search ───
+       The central hub for auditing active units and managing unassigned personnel. -->
+  <section class="w-[45%] h-full bg-[var(--nt-body-bg)] border-r border-[var(--nt-card-border)] flex flex-col relative">
+    <!-- Filter Hub: Scoping unit visibility -->
+    <div class="p-5 pb-0 bg-[var(--nt-body-bg)] z-10 sticky top-0">
+      <div class="flex justify-between items-center mb-4">
+        <h1 class="barlow-800 text-2xl font-bold text-[var(--nt-bright)] uppercase tracking-tight">ALL TEAMS</h1>
+        <div class="relative w-64">
+          <span class="material-symbols-outlined absolute left-3 top-2 text-[var(--nt-dim)] text-sm">search</span>
+          <input id="search-teams" class="w-full bg-[var(--nt-section-bg)] border border-[var(--nt-card-border)] rounded pl-9 pr-3 py-1.5 text-xs fira-code text-[var(--nt-bright)] focus:outline-none focus:border-[#F97316] placeholder:text-[var(--nt-dim)]/60" placeholder="SEARCH TEAMS..." type="text"/>
+        </div>
+      </div>
+      <div class="flex gap-2 pb-4 overflow-x-auto no-scrollbar border-b border-[var(--nt-card-border)]" id="filter-btns">
+        <button data-filter="all" class="filter-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold nt-card text-[var(--nt-bright)] border border-[#F97316]/40">All Teams</button>
+        <button data-filter="medical" class="filter-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold bg-transparent text-[var(--nt-dim)] hover:nt-card transition-colors">Medical</button>
+        <button data-filter="traffic_control" class="filter-btn shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold bg-transparent text-[var(--nt-dim)] hover:nt-card transition-colors">Traffic Control</button>
+      </div>
+    </div>
+    <!-- Logical Unit Registry: Chronological or categorical list of deployments -->
+    <div class="flex-1 overflow-y-auto p-5 pb-24 space-y-4" id="teams-list">
+      <div class="text-center py-12" style="color:var(--nt-dim)">
+        <span class="material-symbols-outlined text-4xl block mb-2" style="opacity:0.3">sync</span>
+        <p class="outfit text-xs" style="opacity:0.5">Loading teams…</p>
+      </div>
+    </div>
+    <!-- Tactical Action Bar: Batch operations for personnel management -->
+    <div class="absolute bottom-0 left-0 w-full p-4 bg-[var(--nt-section-bg)]/90 backdrop-blur-md border-t border-[var(--nt-card-border)]/80 flex justify-between items-center z-20">
+      <span id="selected-count" class="barlow-800 text-lg font-bold text-[var(--nt-bright)]">0 SELECTED</span>
+      <div class="flex gap-2">
+        <button id="btn-assign-existing" class="px-4 py-2 bg-[#1F3448]/30 hover:nt-card text-[var(--nt-dim)] hover:text-[var(--nt-bright)] outfit text-xs font-semibold rounded transition-colors border border-[var(--nt-card-border)]">ASSIGN TO EXISTING</button>
+      </div>
+    </div>
+  </section>
+  <!-- ─── COLUMN 3: Personnel Intelligence ───
+       A master-detail panel for auditing individual unit capability and deployment history. -->
+  <aside class="w-[30%] h-full bg-[var(--nt-section-bg)] flex flex-col">
+    <div class="p-5 flex-1 overflow-y-auto" id="detail-panel">
+      <!-- Dormant State: Active when no entity is selected -->
+      <div id="detail-empty" class="h-full flex flex-col items-center justify-center text-center opacity-40">
+        <span class="material-symbols-outlined text-6xl mb-4 text-[var(--nt-dim)]">groups</span>
+        <h2 class="barlow-800 text-xl font-bold text-[var(--nt-bright)] uppercase">NO TEAM SELECTED</h2>
+        <p class="outfit text-sm text-[var(--nt-dim)] mt-2">Select a team from the list to view details, manage members, and reassign roles.</p>
+      </div>
+      <!-- Active Detail Console: Visible upon logical unit selection -->
+      <div id="detail-view" class="hidden space-y-6">
+        <div>
+          <h2 id="detail-team-name" class="barlow-800 text-2xl font-bold text-[var(--nt-bright)] uppercase tracking-tight"></h2>
+          <p id="detail-team-meta" class="fira-code text-xs text-[var(--nt-dim)] mt-1"></p>
+        </div>
+        <!-- Capability & Scope Indicators -->
+        <div class="grid grid-cols-2 gap-3">
+          <div class="nt-card p-3 rounded border border-[var(--nt-card-border)]">
+            <span class="outfit text-[10px] text-[var(--nt-dim)] uppercase block">ZONE</span>
+            <span id="detail-zone" class="barlow-800 text-xl text-[#F97316]"></span>
+          </div>
+          <div class="nt-card p-3 rounded border border-[var(--nt-card-border)]">
+            <span class="outfit text-[10px] text-[var(--nt-dim)] uppercase block">MEMBERS</span>
+            <span id="detail-member-count" class="barlow-800 text-xl text-[var(--nt-bright)]"></span>
+          </div>
+        </div>
+        <!-- Personnel Inventory: Roster of units assigned to the logical team -->
+        <div>
+          <h3 class="barlow-800 text-sm text-[var(--nt-dim)] uppercase mb-3 border-b border-[var(--nt-card-border)] pb-2">TEAM MEMBERS</h3>
+          <div id="detail-members-list" class="space-y-2"></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</main>
+<!-- ════════════════════════════════════════════════
+     SYSTEM FOOTER: Global Analytics Telemetry
+     Provides continuous health and synchronization data for the team management engine.
+     ════════════════════════════════════════════════ -->
+<footer class="h-6 w-full bg-[var(--nt-section-bg)] border-t border-[var(--nt-card-border)] flex items-center px-4 justify-between shrink-0 fira-code text-[10px] text-[var(--nt-dim)] uppercase tracking-wider z-50">
+  <div class="flex gap-6">
+    <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#F97316] animate-pulse"></span> SYSTEM_STATUS: NOMINAL</span>
+    <span>ENCRYPTION: AES-256</span>
+  </div>
+  <div class="flex gap-6">
+    <span id="footer-teams-active">TEAMS_ACTIVE: —</span>
+    <span>N 40.7128 // W 74.0060</span>
+  </div>
+</footer>
+
+<script src="../../js/app.js"></script>
+<script src="../../js/theme.js"></script>
+<script src="../../js/relief_center/teams.js"></script>
+
+<!-- ════════════════════════════════════════════════
+     TEAM PICKER OVERLAY
+     A high-impact modal for reallocating unassigned personnel to active units.
+     ════════════════════════════════════════════════ -->
+<div id="team-picker-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-black/60 backdrop-blur-sm transition-all duration-300">
+  <div class="nt-card w-full max-w-md border border-[var(--nt-card-border)] rounded-lg overflow-hidden shadow-2xl scale-95 opacity-0 transition-all duration-300" id="team-picker-container">
+    <div class="px-6 py-4 border-b border-[var(--nt-card-border)] flex justify-between items-center bg-[var(--nt-section-bg)]">
+      <h2 class="barlow-800 text-xl font-bold text-[var(--nt-bright)] uppercase tracking-tight">SELECT TARGET TEAM</h2>
+      <button id="close-picker" class="material-symbols-outlined text-[var(--nt-dim)] hover:text-[#FF3B30] transition-colors">close</button>
+    </div>
+    <div class="p-6 max-h-[60vh] overflow-y-auto space-y-3" id="team-picker-list">
+      <!-- Target selection cards injected via JS runtime -->
+    </div>
+  </div>
+</div>
+
+</body></html>

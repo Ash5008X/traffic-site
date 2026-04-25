@@ -1,0 +1,214 @@
+<!-- Document type declaration -->
+<!DOCTYPE html>
+<!-- Main HTML element with language attribute -->
+<html lang="en">
+<!-- Head section containing metadata and external resources -->
+<head>
+  <!-- Character encoding for the document -->
+  <meta charset="UTF-8" />
+  <!-- Responsive viewport settings -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Page title -->
+  <title>NexusTraffic | Register</title>
+  
+  <!-- Preconnect to Google Fonts for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <!-- Main typography fonts from Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Material Symbols for icons -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,0"
+    rel="stylesheet"
+  />
+  <!-- Link to external registration CSS -->
+  <link rel="stylesheet" href="../css/auth/register.css" />
+</head>
+<!-- Body section where the visible content resides -->
+<body>
+  <!-- Main container for authentication screens -->
+  <main class="auth-shell">
+    <!-- Card component for the registration form -->
+    <section class="auth-card" aria-label="Register form">
+      <!-- Branding block containing logo and title -->
+      <div class="brand-block">
+        <!-- Application icon -->
+        <span class="material-symbols-outlined brand-icon" aria-hidden="true">traffic</span>
+        <!-- Primary application name -->
+        <h1>NEXUSTRAFFIC</h1>
+        <!-- Subtitle for the registration screen -->
+        <p>Create Your Account</p>
+      </div>
+
+      <!-- Authentication form for user registration -->
+      <form class="auth-form" action="#" method="post">
+        <!-- Grid layout for name fields -->
+        <div class="grid-2">
+          <!-- First name input field wrapper -->
+          <div class="field-wrap">
+            <!-- Label for first name input -->
+            <label for="firstName">First Name *</label>
+            <!-- First name input element -->
+            <input id="firstName" name="firstName" type="text" placeholder="First Name" required />
+          </div>
+          <!-- Last name input field wrapper -->
+          <div class="field-wrap">
+            <!-- Label for last name input -->
+            <label for="lastName">Last Name</label>
+            <!-- Last name input element -->
+            <input id="lastName" name="lastName" type="text" placeholder="Last Name" />
+          </div>
+        </div>
+
+        <!-- Grid layout for age and gender fields -->
+        <div class="grid-2">
+          <!-- Age input field wrapper -->
+          <div class="field-wrap">
+            <!-- Label for age input -->
+            <label for="age">Age</label>
+            <!-- Age input element -->
+            <input id="age" name="age" type="number" min="1" placeholder="Age" />
+          </div>
+          <!-- Gender selection field wrapper -->
+          <div class="field-wrap">
+            <!-- Label for gender selection -->
+            <label for="gender">Gender</label>
+            <!-- Gender select element -->
+            <select id="gender" name="gender">
+              <!-- Default disabled option -->
+              <option value="" selected disabled>Select Gender</option>
+              <!-- Female option -->
+              <option value="female">Female</option>
+              <!-- Male option -->
+              <option value="male">Male</option>
+              <!-- Other option -->
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Phone number input field wrapper -->
+        <div class="field-wrap">
+          <!-- Label for phone number input -->
+          <label for="phone">Phone Number</label>
+          <!-- Phone number input element -->
+          <input id="phone" name="phone" type="tel" placeholder="Phone Number" />
+        </div>
+
+        <!-- Email input field wrapper -->
+        <div class="field-wrap">
+          <!-- Label for email input -->
+          <label for="email">Email *</label>
+          <!-- Email input element -->
+          <input id="email" name="email" type="email" placeholder="Email" required />
+        </div>
+
+        <!-- Password input field wrapper -->
+        <div class="field-wrap">
+          <!-- Label for password input -->
+          <label for="password">Password *</label>
+          <!-- Wrapper for password input and show/hide action -->
+          <div class="input-with-action">
+            <!-- Password input element -->
+            <input id="password" name="password" type="password" placeholder="Enter password" required />
+            <!-- Toggle button to show or hide the password text -->
+            <button class="inline-action" type="button" data-toggle="#password">
+              <!-- Visibility icon -->
+              <span class="material-symbols-outlined">visibility</span>
+              Show
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm password input field wrapper -->
+        <div class="field-wrap">
+          <!-- Label for confirm password input -->
+          <label for="confirmPassword">Confirm Password *</label>
+          <!-- Confirm password input element -->
+          <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
+        </div>
+
+        <!-- Role selection fieldset -->
+        <fieldset class="role-group">
+          <!-- Title for the role selection group -->
+          <legend>Role *</legend>
+          <!-- Container for role radio options -->
+          <div class="role-options">
+            <!-- Regular User role option -->
+            <label class="role-option active">
+              <!-- Radio input for user role -->
+              <input type="radio" name="role" value="user" checked />
+              <!-- User icon -->
+              <span class="material-symbols-outlined">person</span>
+              User
+            </label>
+            <!-- Relief Admin role option -->
+            <label class="role-option">
+              <!-- Radio input for relief-admin role -->
+              <input type="radio" name="role" value="relief-admin" />
+              <!-- Monitoring icon -->
+              <span class="material-symbols-outlined">monitoring</span>
+              Relief Admin
+            </label>
+            <!-- Field Unit role option -->
+            <label class="role-option">
+              <!-- Radio input for field-unit role -->
+              <input type="radio" name="role" value="field-unit" />
+              <!-- Location icon -->
+              <span class="material-symbols-outlined">my_location</span>
+              Field Unit
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Primary submission button for the registration form -->
+        <button class="primary-btn" type="submit">Register</button>
+
+        <!-- Link to switch to the login page -->
+        <p class="switch-copy">
+          Already have an account?
+          <a href="../index.html">Login</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Core application logic script -->
+  <script src="../js/app.js"></script>
+  <!-- Registration-specific functionality script -->
+  <script src="../js/register.js"></script>
+  <!-- Inline script for interactive UI elements on the registration page -->
+  <script>
+    // Select all buttons with data-toggle attribute and attach click event listeners
+    document.querySelectorAll("[data-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        // Find the target input element associated with the button
+        const target = document.querySelector(button.dataset.toggle);
+        // Check if the current type is password to determine toggle action
+        const isHidden = target.type === "password";
+        // Toggle the input type between text and password
+        target.type = isHidden ? "text" : "password";
+        // Update the icon to reflect the current visibility state
+        button.querySelector(".material-symbols-outlined").textContent = isHidden ? "visibility_off" : "visibility";
+        // Update the button text to 'Hide' or 'Show'
+        button.lastChild.textContent = isHidden ? " Hide" : " Show";
+      });
+    });
+
+    // Select all role radio inputs and attach change event listeners for visual state updates
+    document.querySelectorAll(".role-option input").forEach((radio) => {
+      radio.addEventListener("change", () => {
+        // Remove 'active' class from all role labels
+        document.querySelectorAll(".role-option").forEach((el) => el.classList.remove("active"));
+        // Add 'active' class to the selected role label
+        radio.closest(".role-option").classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
+
