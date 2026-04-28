@@ -270,13 +270,18 @@ const authController = {
       const { getDB } = require('../config/db');
       const db = getDB();
       
-      // Fetch all members with the field_unit role
-      const members = await db.collection('members')
+      // Fetch all members with the field_unit role from both collections
+      const membersInMembers = await db.collection('members')
+        .find({ role: 'field_unit' })
+        .project({ name: 1, email: 1, location: 1, role: 1 })
+        .toArray();
+
+      const membersInUsers = await db.collection('users')
         .find({ role: 'field_unit' })
         .project({ name: 1, email: 1, location: 1, role: 1 })
         .toArray();
         
-      res.json(members);
+      res.json([...membersInMembers, ...membersInUsers]);
     } catch (err) {
       console.error('getFieldUnits error:', err);
       res.status(500).json({ error: 'Server error' });

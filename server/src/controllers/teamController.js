@@ -105,15 +105,26 @@ const teamController = {
         (t.members || []).forEach(m => assignedIds.add(m.toString()));
       });
 
-      // Fetch member details for those in the admin's proximity pool
+      // Fetch member details for those in the admin's proximity pool (search both members and users collections)
       const poolIds = admin.unassignedMembers.map(id => new ObjectId(id));
-      const fieldUsers = await db.collection('members')
+      
+      const fieldUsersInMembers = await db.collection('members')
         .find({ 
           _id: { $in: poolIds },
           role: 'field_unit' 
         })
         .project({ name: 1, email: 1, role: 1 })
         .toArray();
+
+      const fieldUsersInUsers = await db.collection('users')
+        .find({ 
+          _id: { $in: poolIds },
+          role: 'field_unit' 
+        })
+        .project({ name: 1, email: 1, role: 1 })
+        .toArray();
+      
+      const fieldUsers = [...fieldUsersInMembers, ...fieldUsersInUsers];
       
       // Final filter: Must be in the 5km pool AND not yet assigned to any tactical team
       const unassigned = fieldUsers
